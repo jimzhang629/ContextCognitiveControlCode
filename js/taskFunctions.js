@@ -1,11 +1,13 @@
 /** displays an image located at filePath on a canvas 
  * @param {Image} centerImg : the target Image object that you want to display in the center of the screen
- * @param {string} location : 'center','top', or 'bottom'. Screen location to display trial.
+ * @param {string} loc : 'center','top', or 'bottom'. Screen location to display trial.
  * @param {string} flankerSize : 'small' or 'large'. Size of flanker relative to center image.
 */
 
+// let flankerSize = 'small';
+
 //maybe do this by shifting the canvas up and down instead of the image.
-function draw(centerImg, location='center', flankerSize='large') {
+function draw(centerImg, loc='center', flankerSize='small') {
     
     // these are all half the size of the original image
     let scaleRatio, cImgScaledW, cImgScaledH, flankerScaledW, flankerScaledH, leftCenterImg, leftFlanker;
@@ -13,15 +15,18 @@ function draw(centerImg, location='center', flankerSize='large') {
     scaleRatio = 0.5;
     cImgScaledW = centerImg.width * scaleRatio;
     cImgScaledH = centerImg.height * scaleRatio;
+    console.log('ran draw');
 
     if (flankerSize === 'large') {
-      flankerScaledW = basketballImg.width * scaleRatio; 
-      flankerScaledH = basketballImg.height * scaleRatio;
+      flankerScaledW = basketballImg.width * scaleRatio * 1.2; 
+      flankerScaledH = basketballImg.height * scaleRatio * 1.2;
+      console.log('ran large flanker size');
     }
 
     else if (flankerSize === 'small') {
       flankerScaledW = basketballImg.width * scaleRatio * 0.5; 
       flankerScaledH = basketballImg.height * scaleRatio * 0.5;
+      console.log('ran small flanker size');
     }
 
     else {
@@ -34,18 +39,18 @@ function draw(centerImg, location='center', flankerSize='large') {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // draw center img in the center of the canvas
 
-    if (location === 'center') {
+    if (loc === 'center') {
       ctx.drawImage(centerImg, leftCenterImg, canvas.height/2 - cImgScaledH/2, width=cImgScaledW, height=cImgScaledH);
       //draw a flanker at 1/4 of screen and at 3/4 of screen (hope this works)
       ctx.drawImage(basketballImg, leftFlanker, canvas.height/2 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
       ctx.drawImage(basketballImg, canvas.width - leftFlanker - flankerScaledW, canvas.height/2 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
     }
 
-    else if (location === 'bottom') {
+    else if (loc === 'bottom') {
       // draw on bottom. Do this later.
     }
 
-    else if (location === 'top') {
+    else if (loc === 'top') {
       // draw on top
     }
   }

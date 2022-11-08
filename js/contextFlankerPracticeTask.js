@@ -19,12 +19,10 @@ function contextFlankerPracticeTask(){
     stimFunc = draw; //this is the actual trial function that gets run by stimScreen. For this experiment, don't really need this variable since it will always be draw().
 
     //draw the trial input, which is one of the practice images in this case
-    console.log("stimFunc:" + trialCount + " " + stimFunc);
-
-
     //create task arrays
     taskArray = buildTaskArray(nPracticeTrials);
 
+    console.log('taskArray:' + taskArray);
     // selectedImages.forEach(i => draw(i)); //run a trial on each target image in selectedImages array
     // start task after countdown (calls taskFunc)
     countDown(3);
@@ -47,7 +45,6 @@ function buildTaskArray(nTrials, conProp = 0.8){
 
     let taskArray = new Array(Math.floor(nTrials * conProp)).fill('c'); 
     taskArray = taskArray.concat(new Array(nTrials - taskArray.length).fill('i'));
-
     return shuffle(taskArray);
 }
 

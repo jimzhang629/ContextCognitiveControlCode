@@ -8,7 +8,8 @@
 
 //maybe do this by shifting the canvas up and down instead of the image.
 function draw(centerImg, loc='center', flankerSize='small') {
-    
+    console.log(loc);
+    console.log(flankerSize);
     // these are all half the size of the original image
     let scaleRatio, cImgScaledW, cImgScaledH, flankerScaledW, flankerScaledH, leftCenterImg, leftFlanker;
 
@@ -60,18 +61,33 @@ function fixationScreen(){
     resetCanvas("85px Arial", "black", true);
     ctx.fillText("+",canvas.width/2,canvas.height/2);
     setTimeout(stimScreen, fixInterval);
+    console.log('fixInterval is: ' + fixInterval);
   }
   
 function stimScreen(){
     stimOnset = new Date().getTime() - runStart;
     resetCanvas("45px Arial", "black", true)
-  
     // prepare for response
     keyListener = 1; acc = NaN, respTime = NaN, partResp = NaN, respOnset = NaN;
 
-    stimFunc(imageSet[trialCount]);
+    // display corresponding flanker for this trial, depending on target image size and congruency
+    drawMapping = {
+      'c': {
+        's': "large",
+        'l': "small"
+      },
+      'i': {
+        's': "small",
+        'l': "large"
+      }
+    }
+    
+    //index the drawMapping dict twice, first with the congruency (from taskArray), second with the flanker size (using getLetter and the image.src)
+    draw(imageSet[trialCount-1], loc='center', flankerSize=drawMapping[taskArray[trialCount-1]][getLetter(imageSet[trialCount-1].src)]);
 
     console.log('trialCount on stimScreen is: ' + trialCount);
+    console.log('flanker size is: ' + flankerSize);
+    console.log('displayed image is: ' + imageSet[trialCount-1]);
     //proceed to iti after delay
     stimTimeout = setTimeout(itiScreen, stimInterval);
   }
@@ -323,26 +339,4 @@ function promptScreenSize(){
   
     }
   }
-  
-
-// // for testing
-// $(document).ready(function(){
-//     prepareTaskCanvas();
-//     $('#taskCanvas').show();
-//     draw(selectedImages[0]);
-// });
-
-
-/*
-Set up the canvas when the document is ready, but don't show it until the task starts.
-Need to define canvas as a global variable, but don't actually give it a definition until resetCanvas function.
-
-combine the functions.
-
-show canvas just displays the canvas, it doesn't show the pictures.
-
-Also put the pictures into an array, and pre-load that.
-
-ALSO dont use pre-defined image height and width, put the four corners in
-*/
 

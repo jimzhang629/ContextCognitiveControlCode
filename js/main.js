@@ -18,7 +18,7 @@ let nPracticeTrials = 5;
 let practiceAccCutoff = 80; // this is the percentage of practice trials you need to get right to move on to main task
 
 // trial level information (default to lowest value)
-let trialCount = 0, blockTrialCount = 1, block = 1, accCount = 0;
+let trialCount = 1, blockTrialCount = 1, block = 1, accCount = 0;
 
 //global task arrays
 let targetShapeArr = [], distractionArr = [], taskSequenceArr = [], targetLocationArr = [], distractorLocationArr = [], lineDirectionArr = [];
@@ -37,10 +37,10 @@ let keyListener = 0; // see below
 // see counterbalancing.js for block order stuff. Define getBlockOrder in some other function.
 
 function experimentFlow(){
-    trialCount = 0;
-    blockTrialCount = 0;
+    trialCount = 1;
+    blockTrialCount = 1;
     if (!repeatNecessary) {
-      block = 0;
+      block = 1;
     } else {
       block++;
     }
@@ -101,10 +101,10 @@ function experimentFlow(){
     // [90,122] - Z and [77,109] - M
     // so by default, congruent is Z and incongruent is M
   
-    if (taskArray[trialCount-1] == "c") { //why is this -1
+    if (getLetter(imageSet[trialCount-1].src) == 's') { //if it's a small image, then press z
       acc = ([90, 122].indexOf(event.which) != -1) ? 1 : 0;
     } else {
-      acc = ([77, 109].indexOf(event.which) != -1) ? 1 : 0;
+      acc = ([77, 109].indexOf(event.which) != -1) ? 1 : 0; //if large image, press m
     }
   
     // update acc count

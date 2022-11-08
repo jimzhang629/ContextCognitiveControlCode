@@ -72,3 +72,22 @@ function equalCounts(arr){
 function decimalToPercent(decimal){
   return Math.round(decimal * 100 * 100) / 100;
 }
+
+/** getLetter takes an image.src and returns the flanker size
+ * 
+ * @param {filepath} src : this needs to be an image named using S or L in the images subfolder
+ * @returns 's' or 'l', according to image flanker size
+ */
+function getLetter(src){
+  if (src.indexOf('/images/S') != -1){
+    return 's'
+  }
+
+  else if (src.indexOf('/images/L') != -1){
+    return 'l'
+  }
+
+  else{
+    throw 'Please name the image S# or L# and place in the images subfolder'
+  }
+}

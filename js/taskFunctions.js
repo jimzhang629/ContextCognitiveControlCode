@@ -8,26 +8,21 @@
 
 //maybe do this by shifting the canvas up and down instead of the image.
 function draw(centerImg, loc='center', flankerSize='small') {
-    console.log(loc);
-    console.log(flankerSize);
     // these are all half the size of the original image
     let scaleRatio, cImgScaledW, cImgScaledH, flankerScaledW, flankerScaledH, leftCenterImg, leftFlanker;
 
     scaleRatio = 0.5;
     cImgScaledW = centerImg.width * scaleRatio;
     cImgScaledH = centerImg.height * scaleRatio;
-    console.log('ran draw');
 
     if (flankerSize === 'large') {
       flankerScaledW = basketballImg.width * scaleRatio * 1.2; 
       flankerScaledH = basketballImg.height * scaleRatio * 1.2;
-      console.log('ran large flanker size');
     }
 
     else if (flankerSize === 'small') {
       flankerScaledW = basketballImg.width * scaleRatio * 0.5; 
       flankerScaledH = basketballImg.height * scaleRatio * 0.5;
-      console.log('ran small flanker size');
     }
 
     else {
@@ -42,17 +37,23 @@ function draw(centerImg, loc='center', flankerSize='small') {
 
     if (loc === 'center') {
       ctx.drawImage(centerImg, leftCenterImg, canvas.height/2 - cImgScaledH/2, width=cImgScaledW, height=cImgScaledH);
-      //draw a flanker at 1/4 of screen and at 3/4 of screen (hope this works)
+      //draw a flanker at 1/4 of canvas width and at 3/4 of canvas width
       ctx.drawImage(basketballImg, leftFlanker, canvas.height/2 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
       ctx.drawImage(basketballImg, canvas.width - leftFlanker - flankerScaledW, canvas.height/2 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
     }
 
     else if (loc === 'bottom') {
-      // draw on bottom. Do this later.
+      // draw on bottom, centered at 3/4 of canvas height
+      ctx.drawImage(centerImg, leftCenterImg, canvas.height*(3/4) - cImgScaledH/2, width=cImgScaledW, height=cImgScaledH);
+      ctx.drawImage(basketballImg, leftFlanker, canvas.height*(3/4) - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
+      ctx.drawImage(basketballImg, canvas.width - leftFlanker - flankerScaledW, canvas.height*(3/4) - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
     }
 
     else if (loc === 'top') {
-      // draw on top
+      // draw on top, centered at 1/4 of canvas height
+      ctx.drawImage(centerImg, leftCenterImg, canvas.height/4 - cImgScaledH/2, width=cImgScaledW, height=cImgScaledH);
+      ctx.drawImage(basketballImg, leftFlanker, canvas.height/4 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
+      ctx.drawImage(basketballImg, canvas.width - leftFlanker - flankerScaledW, canvas.height/4 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
     }
   }
 
@@ -61,7 +62,6 @@ function fixationScreen(){
     resetCanvas("85px Arial", "black", true);
     ctx.fillText("+",canvas.width/2,canvas.height/2);
     setTimeout(stimScreen, fixInterval);
-    console.log('fixInterval is: ' + fixInterval);
   }
   
 function stimScreen(){
@@ -82,12 +82,9 @@ function stimScreen(){
       }
     }
     
-    //index the drawMapping dict twice, first with the congruency (from taskArray), second with the flanker size (using getLetter and the image.src)
-    draw(imageSet[trialCount-1], loc='center', flankerSize=drawMapping[taskArray[trialCount-1]][getLetter(imageSet[trialCount-1].src)]);
+    //index the drawMapping dict twice, first with the congruency (from taskArray), second with the flanker size (using getTargetSize and the image.src)
+    draw(imageSet[trialCount-1], loc=locArray[trialCount-1], flankerSize=drawMapping[taskArray[trialCount-1]][getTargetSize(imageSet[trialCount-1].src)]);
 
-    console.log('trialCount on stimScreen is: ' + trialCount);
-    console.log('flanker size is: ' + flankerSize);
-    console.log('displayed image is: ' + imageSet[trialCount-1]);
     //proceed to iti after delay
     stimTimeout = setTimeout(itiScreen, stimInterval);
   }
@@ -99,17 +96,18 @@ function itiScreen(){
       keyListener = 3;
     }
   
-    // log data
+    // log data 
     if (sectionType == "practiceTask") {
       logPracticeTask();
+      
     } else {
-      logAdditionalSingletonTask();
+      logMainTask();
     }
-  
-    // display feedback
+    
+    // display feedback for practice task 
     resetCanvas("60px Arial", "black", true);
-    ctx.fillText(accFeedback(),canvas.width/2,canvas.height/2);
-  
+    ctx.fillText(accFeedback(), canvas.width/2,canvas.height/2);
+
     // trial finished. iterate and proceed to next
     trialCount++; blockTrialCount++;
     setTimeout(taskFunc, itiInterval(itiMin, itiMax, itiStep));

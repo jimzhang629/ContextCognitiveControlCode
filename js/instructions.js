@@ -15,7 +15,7 @@ let instructions = {
   // what does instruction section end with?
   // #nextSectionButton, #startExpButton, keyPressNextSection, keyPressStartTask
   exitResponse: {
-    "prac1": '#nextSectionButton',
+    "prac1": 'keyPressStartTask',
     "main1": 'keyPressStartTask'
   }
 }
@@ -83,7 +83,8 @@ function getInstructionText(slideNum, expStage){
         case 3:
           return "prac1 case 3";
         case 4:
-          return "prac1 case 4";
+          changeTextFormat('#instructions' + slideNum,'font-weight','bold');
+          return "press any button to start the task (also prac1 case 4)";
       }
     case "main1":
       switch (slideNum){
@@ -102,7 +103,6 @@ function getInstructionText(slideNum, expStage){
 }
 
 function runInstructions(){
-  console.log('ran instructions')
   // show cursor
   document.body.style.cursor = 'auto';
 

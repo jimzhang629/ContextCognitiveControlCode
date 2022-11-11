@@ -3,26 +3,28 @@ let expStage = "prac1"; //first expStage, see instructions.js
 let speed = "normal"; //speed of experiment: fast or normal
 
 // ----- Global Variables  ----- //
-let nBlocks = 4;
-let trialsPerBlock = 160; // (multiples of 16)
+let nBlocks = 3; //this should always be 3 for this experiment I think..
+let trialsPerBlock = 2; // (multiples of 16)
 let stimInterval = (speed == "fast") ? 10 : 2500;
 let fixInterval = (speed == "fast") ? 10 : 500;
 let itiMin = (speed == "fast") ? 10 : 1200;
 let itiMax = (speed == "fast") ? 10 : 1400;
 let itiStep = 50;
 let trialInput;
-let taskArray;
+
 
 // for practice task
-let nPracticeTrials = 5;
-let practiceAccCutoff = 80; // this is the percentage of practice trials you need to get right to move on to main task
+let nPracticeTrials = 1;
+let practiceConProp = 0.5; // 50% congruency for practice
+let practiceAccCutoff = 0; // this is the percentage of practice trials you need to get right to move on to main task
+
+// for main task
+let taskArray, locArray;
+let repeatTrials = 1; //how many trials from the learning blocks to reinstate in the test block
+
 
 // trial level information (default to lowest value)
 let trialCount = 1, blockTrialCount = 1, block = 1, accCount = 0;
-
-//global task arrays
-let targetShapeArr = [], distractionArr = [], taskSequenceArr = [], targetLocationArr = [], distractorLocationArr = [], lineDirectionArr = [];
-let sequenceTypeArr, sequenceKindArr, sequencePositionArr;
 
 //other global vars
 let canvas, ctx; // global canvas variable
@@ -33,7 +35,8 @@ let stimTimeout, breakOn = false, repeatNecessary = false, data=[];
 let sectionStart, sectionEnd, sectionType, sectionTimer;
 let keyListener = 0; // see below
 
-// let blockOrder = getBlockOrder(randIntFromInterval(1,4));
+let blockOrder = getBlockOrder(randIntFromInterval(1,4));
+let blockLetter;
 // see counterbalancing.js for block order stuff. Define getBlockOrder in some other function.
 
 function experimentFlow(){
@@ -52,10 +55,9 @@ function experimentFlow(){
     // make a practice task though, and test using it
 
     if (expStage.indexOf("prac1") != -1){
-      console.log('prac1'); // need exp flow at end 
-    } else if (expStage.indexOf("main1") != -1){
-      console.log('main1');
       contextFlankerPracticeTask();
+    } else if (expStage.indexOf("main1") != -1){
+      contextFlankerMainTask();
       // endOfExperiment();
     }
   }
@@ -87,10 +89,10 @@ function experimentFlow(){
     // upload data to menu.html's DOM element
     $("#RTs").val(data.join(";"));
     
-    /* need to get the updateMainMenu function working first before doing this
+    // need to get the updateMainMenu function working first before doing this
     // show debriefing script from experimentWrapper.js
     updateMainMenu(nextForm());
-    */
+    
   }
 
   function getAccuracyAndRT(partResp){
@@ -98,13 +100,13 @@ function experimentFlow(){
     respTime = respOnset - stimOnset;
   
     // determine accuracy
-    // [90,122] - Z and [77,109] - M
-    // so by default, congruent is Z and incongruent is M
+    // [83,115] - s and [76,108] - l
+
   
-    if (getLetter(imageSet[trialCount-1].src) == 's') { //if it's a small image, then press z
-      acc = ([90, 122].indexOf(event.which) != -1) ? 1 : 0;
+    if (getTargetSize(imageSet[trialCount-1].src) == 's') { //if it's a small image, then press z
+      acc = ([83, 115].indexOf(event.which) != -1) ? 1 : 0;
     } else {
-      acc = ([77, 109].indexOf(event.which) != -1) ? 1 : 0; //if large image, press m
+      acc = ([76, 108].indexOf(event.which) != -1) ? 1 : 0; //if large image, press m
     }
   
     // update acc count
@@ -179,7 +181,7 @@ function experimentFlow(){
   
       // increment block information before beginning next block
       block++;
-      blockType = blockOrder[block - 1];
+      blockLetter = blockOrder[block - 1];
       blockTrialCount = 1;
       countDown(3);
     }

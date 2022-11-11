@@ -10,7 +10,7 @@ function contextFlankerPracticeTask(){
     hideInstructions();
     showCanvas();
     hideCursor();
-    changeScreenBackgroundTo("lightgrey");
+    changeScreenBackgroundTo("white");
 
     // global variables for functions
     taskFunc = practiceTrialFunc;
@@ -20,9 +20,9 @@ function contextFlankerPracticeTask(){
 
     //draw the trial input, which is one of the practice images in this case
     //create task arrays
-    taskArray = buildTaskArray(nPracticeTrials);
-
-    console.log('taskArray:' + taskArray);
+    taskArray = buildPracticeTaskArray();
+    locArray = buildPracticeLocArray();
+    console.log('practiceTaskArray:' + taskArray);
     // selectedImages.forEach(i => draw(i)); //run a trial on each target image in selectedImages array
     // start task after countdown (calls taskFunc)
     countDown(3);
@@ -36,15 +36,23 @@ function contextFlankerPracticeTask(){
  * @param {float} conProp: congruency proportion for this array. Must be between 0 and 1.
  * @returns {array} taskArray: randomly shuffled array of trials with average proportion congruency equal to conProp
  */
-function buildTaskArray(nTrials, conProp = 0.8){
+function buildPracticeTaskArray(){
 
-    if (conProp < 0 || conProp > 1){
+    if (practiceConProp < 0 || practiceConProp > 1){
         throw 'Please choose a congruency proportion (conProp) between 0 and 1.';
     }
     // left press is congruent and right press is incongruent, make array by adding con trials first, then inc trials.
 
-    let taskArray = new Array(Math.floor(nTrials * conProp)).fill('c'); 
-    taskArray = taskArray.concat(new Array(nTrials - taskArray.length).fill('i'));
+    let taskArray = new Array(Math.floor(nPracticeTrials * practiceConProp)).fill('c'); 
+    taskArray = taskArray.concat(new Array(nPracticeTrials - taskArray.length).fill('i'));
     return shuffle(taskArray);
 }
 
+
+/** buildPracticeLocArray creates an array of locations for each practice trial
+ * this is really redundant right now, but we might want to mess with locations in the future so *shrug* emoji.
+ */
+function buildPracticeLocArray(){
+    let practiceLocArray = new Array(nPracticeTrials).fill('center');
+    return practiceLocArray;
+}

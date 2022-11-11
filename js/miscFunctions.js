@@ -7,8 +7,8 @@ function prepareTaskCanvas() {
 
     // don't know if I need these
     // ctx.font = "bold 60px Arial";
-    // ctx.textBaseline= "middle";
-    // ctx.textAlign="center";
+    ctx.textBaseline= "middle";
+    ctx.textAlign="center";
 }
 
 // Fisher-Yates shuffle
@@ -73,21 +73,25 @@ function decimalToPercent(decimal){
   return Math.round(decimal * 100 * 100) / 100;
 }
 
-/** getLetter takes an image.src and returns the flanker size
+/** getTargetSize takes an image.src and returns the flanker size
  * 
- * @param {filepath} src : this needs to be an image named using S or L in the images subfolder
+ * @param {string} src : filepath to an image named as M#.jpg or N#.jpg, where even # is smaller and odd # is larger
  * @returns 's' or 'l', according to image flanker size
  */
-function getLetter(src){
-  if (src.indexOf('/images/S') != -1){
+function getTargetSize(src){
+
+  let num = src.match(/\d/g);
+  num = num.join('');
+
+  if(src.indexOf('images/') === -1) {
+    throw 'Please source to an image in the images subfolder.'
+  }
+
+  else if (num % 2 === 0) {
     return 's'
   }
 
-  else if (src.indexOf('/images/L') != -1){
+  else {
     return 'l'
-  }
-
-  else{
-    throw 'Please name the image S# or L# and place in the images subfolder'
   }
 }

@@ -4,7 +4,10 @@ let speed = "normal"; //speed of experiment: fast or normal
 
 // ----- Global Variables  ----- //
 let nBlocks = 3; //this should always be 3 for this experiment I think..
-let trialsPerBlock = 2; // (multiples of 16)
+let nLearnBlocks = 2; //this should prob be 2, but we might play with it.
+let trialsPerBlock = 2;
+let trialsPerLearnBlock = 2; //this is kinda redundant with trialsPerBlock rn but might use it in the future.
+let trialsPerTestBlock = 2; //this can be changed if we want, I think.
 let stimInterval = (speed == "fast") ? 10 : 2500;
 let fixInterval = (speed == "fast") ? 10 : 500;
 let itiMin = (speed == "fast") ? 10 : 1200;
@@ -20,8 +23,8 @@ let practiceAccCutoff = 0; // this is the percentage of practice trials you need
 
 // for main task
 let taskArray, locArray;
-let repeatTrials = 1; //how many trials from the learning blocks to reinstate in the test block
-
+let nRepeatTrials = 1; //how many trials from the learning blocks to reinstate in the test block
+let repeatArray;
 
 // trial level information (default to lowest value)
 let trialCount = 1, blockTrialCount = 1, block = 1, accCount = 0;

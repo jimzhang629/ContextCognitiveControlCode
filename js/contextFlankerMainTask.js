@@ -21,6 +21,8 @@ function contextFlankerMainTask(){
     //create task arrays
     taskArray = buildMainTaskArray();
     locArray = buildMainLocArray();
+    repeatArray = buildRepeatArray();
+    
     console.log('taskArray:' + taskArray);
     // start task after countdown (calls taskFunc)
     countDown(3);
@@ -47,11 +49,11 @@ function buildMainTaskArray(){
     return taskArray;
 }
 
+//put the learn and test location arrays in one main array
 function buildMainLocArray(){
-
+    
     let locArray = [];
 
-    // untested
     blockOrder.forEach(blockLetter => {
         // add the location of each block, trialsPerBlock times, to the locArray. Kind of redundant, but we might mess with this in the future.
         let blockLocArray = new Array(trialsPerBlock).fill(getBlockCongruencies(blockLetter).loc);
@@ -60,11 +62,56 @@ function buildMainLocArray(){
 
     return locArray;
 }
+
+/** buildRepeatArray creates an array of trials to be repeated from the learn blocks, and an array of which trials they should be repeated on in the test block.
+ * @returns {array} repeatArray : this is an array of two arrays. The first one is the trials that will be repeated, the second is the trials on which repeats will occur.
+ */
+function buildRepeatArray(){
+    //code from https://stackoverflow.com/questions/5836833/create-an-array-with-random-values
+    //code from https://stackoverflow.com/questions/2380019/generate-unique-random-numbers-between-1-and-100
+    let repeatTheseTrials = [];
+    let repeatOnTheseTrials = [];
+
+    //think I need separate while loops because one might get filled before the other one does if I put them together.
+    while(repeatTheseTrials.length < nRepeatTrials){
+        let learnTrial = randIntFromInterval(1,nLearnBlocks * trialsPerLearnBlock); //lower trialcount limit is 1, upper is the last learn block trial count. Not sure if this is inclusive though, test it.
+        if(repeatTheseTrials.indexOf(learnTrial) === -1) repeatTheseTrials.push(learnTrial);
+    }
+
+    while(repeatOnTheseTrials.length < nRepeatTrials){
+        let testTrial = randIntFromInterval(nLearnBlocks * trialsPerLearnBlock+1, nLearnBlocks * trialsPerLearnBlock + trialsPerTestBlock) //lower is the first test block trial count, upper is the last. Test if these values work though, again might have inclusive issues.
+        if(repeatOnTheseTrials.indexOf(testTrial) === -1) repeatOnTheseTrials.push(testTrial);
+    }
+
+    // repeatTheseTrials = Array.from({length: nRepeatTrials}, () => Math.floor(Math.random() * (nLearnBlocks * trialsPerLearnBlock)))
+    // repeatOnTheseTrials = Array.from({length: nRepeatTrials}, () => Math.floor(Math.random() * (nLearnBlocks * trialsPerLearnBlock)))
+    return [repeatTheseTrials, repeatOnTheseTrials];
+}
+
+
+
+// function buildLearnLocArray(){
+//     let learnLocArray = [];
+    
+//     for (let i=0; i < nLearnBlocks + 1; i++){
+//         // add the location of each learning block, trialsPerLearnBlock times, to the locArray. Assumes learning arrays come before test array.
+//         let learnBlockLocArray = new Array(trialsPerLearnBlock).fill(getBlockCongruencies(blockOrder[i]).loc);
+//         learnLocArray = learnLocArray.concat(learnBlockLocArray);
+//     }
+
+//     console.log('learnLocArray is: ' + learnLocArray);
+//     return learnLocArray;
+// }
+
+// function buildTestLocArray(){
+
+// }
+
+
 /** buildBlockArr creates an array of congruency values based on block parameters
  * 
  * @param {string} blockLetter : This must be one of the predefined cases in getBlockCongruencies in counterbalancing.js. Sets the location and congruency rate of the block.
  */
-//untested
 function buildBlockArr(blockLetter){
     let blockConProp = getBlockCongruencies(blockLetter).c;
     let blockArray = new Array(Math.floor(trialsPerBlock * blockConProp)).fill('c'); 

@@ -87,11 +87,16 @@ function getTargetSize(src){
     throw 'Please source to an image in the images subfolder.'
   }
 
-  else if (num % 2 === 0) {
-    return 's'
+  // does same thing as commented out code below, need to test this though!
+  else if (isEven(num)) {
+    return 's';
   }
 
+  // else if (num % 2 === 0) {
+  //   return 's'
+  // }
+
   else {
-    return 'l'
+    return 'l';
   }
 }

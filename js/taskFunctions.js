@@ -81,7 +81,13 @@ function stimScreen(){
         'l': "large"
       }
     }
-    
+    repeatTheseTrials = repeatArray[0];
+    repeatOnTheseTrials = repeatArray[1];
+
+    // check if we're in the test block, which is the last one. Might need to modify in the future if we have multiple test blocks.
+    if (block === nBlocks) {
+
+    }
     //index the drawMapping dict twice, first with the congruency (from taskArray), second with the flanker size (using getTargetSize and the image.src)
     draw(imageSet[trialCount-1], loc=locArray[trialCount-1], flankerSize=drawMapping[taskArray[trialCount-1]][getTargetSize(imageSet[trialCount-1].src)]);
 

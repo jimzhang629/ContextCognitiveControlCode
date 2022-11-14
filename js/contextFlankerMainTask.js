@@ -23,7 +23,10 @@ function contextFlankerMainTask(){
     locArray = buildMainLocArray();
     repeatArray = buildRepeatArray();
     
+    logExpArrays(); //store the experiment arrays. Hopefully this only runs once. Test it.
+
     console.log('taskArray:' + taskArray);
+    console.log('repeatTheseTrials: ' + repeatArray[0]);
     // start task after countdown (calls taskFunc)
     countDown(3);
 }
@@ -119,8 +122,9 @@ function buildRepeatArray(){
  */
 function buildBlockArr(blockLetter){
     let blockConProp = getBlockCongruencies(blockLetter).c;
-    let blockArray = new Array(Math.floor(trialsPerBlock * blockConProp)).fill('c'); 
-    blockArray = taskArray.concat(new Array(trialsPerBlock - blockArray.length).fill('i'));
+    let blockArray = new Array(Math.floor(trialsPerBlock * blockConProp)).fill('c');
+    console.log('blockConProp: ' + blockConProp);
+    blockArray = blockArray.concat(new Array(trialsPerBlock - blockArray.length).fill('i'));
     return shuffle(blockArray);
 }
   

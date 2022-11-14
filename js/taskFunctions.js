@@ -81,25 +81,29 @@ function stimScreen(){
         'l': "large"
       }
     }
-    repeatTheseTrials = repeatArray[0];
-    repeatOnTheseTrials = repeatArray[1];
+
+  //only run the repeat trial stuff for main1
+  if(expStage==='main1'){
+
+    let localRepeatTheseTrials = repeatArray[0];
+    let localRepeatOnTheseTrials = repeatArray[1];
 
     // check if we should repeat on this trial
-    if (repeatOnTheseTrials.includes(trialCount)) {
+    if (localRepeatOnTheseTrials.includes(trialCount)) {
 
-      //select a random trial from repeatTheseTrials and draw it
-      repeatThisTrial = repeatTheseTrials[Math.floor(Math.random() * repeatTheseTrials.length)];
+      //select a random trial from localRepeatTheseTrials and draw it
+      repeatThisTrial = localRepeatTheseTrials[Math.floor(Math.random() * localRepeatTheseTrials.length)];
       draw(imageSet[repeatThisTrial-1], loc=locArray[repeatThisTrial-1], flankerSize=drawMapping[taskArray[repeatThisTrial-1]][getTargetSize(imageSet[repeatThisTrial-1].src)]);
-      console.log('length of repeatTheseTrials before pop is: ' + length(repeatTheseTrials))
+      console.log('length of localRepeatTheseTrials before pop is: ' + localRepeatTheseTrials.length);
       //breakpoint here
 
-      //remove the selected trial from repeatTheseTrials
-      let idx = repeatTheseTrials.indexOf(repeatThisTrial);
-      repeatTheseTrials.splice(idx,1);
-      // removeFirst(repeatTheseTrials,repeatThisTrial); //this should also remove the selected trial but dunno if it needs to be assigned to variable?
+      //remove the selected trial from localRepeatTheseTrials
+      let idx = localRepeatTheseTrials.indexOf(repeatThisTrial);
+      localRepeatTheseTrials.splice(idx,1);
+      // removeFirst(localRepeatTheseTrials,repeatThisTrial); //this should also remove the selected trial but dunno if it needs to be assigned to variable?
       
       repeatLog = repeatThisTrial; //store which trial was repeated for data logging
-      console.log('length of repeatTheseTrials after pop is: ' + length(repeatTheseTrials))
+      console.log('length of localRepeatTheseTrials after pop is: ' + localRepeatTheseTrials.length);
     }
 
     //if we don't need to repeat this trial, draw the trialCount image
@@ -109,10 +113,15 @@ function stimScreen(){
       repeatLog = NaN; //if trial isn't a repeat, datalog a NaN. Maybe do a False instead?
     }
 
-    //proceed to iti after delay
-    stimTimeout = setTimeout(itiScreen, stimInterval);
   }
-  
+  //for practice exp stage, just draw
+  else{
+    draw(imageSet[trialCount-1], loc=locArray[trialCount-1], flankerSize=drawMapping[taskArray[trialCount-1]][getTargetSize(imageSet[trialCount-1].src)]);
+  }
+  //proceed to iti after delay
+  stimTimeout = setTimeout(itiScreen, stimInterval);
+}
+
 function itiScreen(){
     if (keyListener == 1) { // participant didn't respond
       keyListener = 0;

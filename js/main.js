@@ -3,9 +3,11 @@ let expStage = "prac1"; //first expStage, see instructions.js
 let speed = "normal"; //speed of experiment: fast or normal
 
 // ----- Global Variables  ----- //
-let nBlocks = 3; //this should always be 3 for this experiment I think..
 let nLearnBlocks = 2; //this should prob be 2, but we might play with it.
-let trialsPerBlock = 2;
+let nTestBlocks = 1;
+let trialsPerBlock = 3;
+let nBlocks = nLearnBlocks + nTestBlocks; //this should always be 3 for this experiment I think..
+
 let trialsPerLearnBlock = 2; //this is kinda redundant with trialsPerBlock rn but might use it in the future.
 let trialsPerTestBlock = 2; //this can be changed if we want, I think.
 let stimInterval = (speed == "fast") ? 10 : 2500;
@@ -32,7 +34,7 @@ let trialCount = 1, blockTrialCount = 1, block = 1, accCount = 0;
 
 //other global vars
 let canvas, ctx; // global canvas variable
-let sampleSize = 8;
+let sampleSize = nPracticeTrials + nBlocks * trialsPerBlock - nRepeatTrials; //number of images we need is # of practice trials + # of test trials - # of repeated trials
 let taskFunc, transitionFunc, stimFunc, taskName;
 let acc, stimOnset, respOnset, respTime, partResp, runStart;
 let stimTimeout, breakOn = false, repeatNecessary = false, data=[];
@@ -62,7 +64,9 @@ function experimentFlow(){
       contextFlankerPracticeTask();
     } else if (expStage.indexOf("main1") != -1){
       contextFlankerMainTask();
-      // endOfExperiment();
+    }
+    else if (expStage.indexOf('final') != -1){
+      endOfExperiment(); //untested
     }
   }
   

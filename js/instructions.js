@@ -10,7 +10,7 @@ let instructions = {
   },
   // contains the max value of each instruction iteration. iteration will STOP at max and display exit response
   max: {
-    "prac1": 4, "main1": 4
+    "prac1": 4, "main1": 5
   },
   // what does instruction section end with?
   // #nextSectionButton, #startExpButton, keyPressNextSection, keyPressStartTask
@@ -77,26 +77,28 @@ function getInstructionText(slideNum, expStage){
     case "prac1":
       switch (slideNum){
         case 1:
-          return "prac1 case1";
+          return "In this experiment, you will categorize a centrally presented image as typically larger or smaller than a basketball.";
         case 2:
-          return "prac1 case 2";
+          return "The centrally presented image will be flanked by two distracting images, please ignore these when making your decision.";
         case 3:
-          return "prac1 case 3";
+          return "Please press 's' to indicate smaller than a basketball, and 'l' to indicate larger. ";
         case 4:
           changeTextFormat('#instructions' + slideNum,'font-weight','bold');
-          return "press any button to start the task (also prac1 case 4)";
+          return "Press any button to begin a practice session. Please respond as quickly and accurately as possible";
       }
     case "main1":
       switch (slideNum){
         case 1:
-          return "main1 case 1";
+          return "Good job on completing the practice!";
         case 2:
-          return "main1 case2";
+          return "You will now complete the main experiment. This should take roughly 30 minutes.";
         case 3:
-          return "main1 case3";
+          return "As a reminder, press 's' to indicate if the center image is typically smaller than a basketball, and 'l' if it is typically larger.";
         case 4:
+          return 'You will need to score 75% accuracy to receive credit. A trial that is too slow is counted as incorrect.'
+        case 5:
           changeTextFormat('#instructions' + slideNum,'font-weight','bold');
-          return "press any button to start the task (also main1 case 4)";
+          return "Press any button to start the task";
       }
     
   }

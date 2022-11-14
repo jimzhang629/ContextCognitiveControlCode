@@ -25,4 +25,11 @@ function logPracticeTask(){
   data.push([taskName, sectionType, NaN, NaN, NaN, trialCount, NaN, stimOnset, respOnset, respTime, getAccuracy(acc), locArray[trialCount-1], taskArray[trialCount-1], imageSet[trialCount-1].src]);
 }
 
+/** logExpArrays stores the taskArray, locArray, and repeatArray (which is actually two arrays)
+ * 
+ */
+function logExpArrays(){
+  data.push(NaN, NaN, NaN, ...arguments, locArray, taskArray, repeatArray) //add however many NaNs you need to until the end, and attach the arrays
+}
+
 

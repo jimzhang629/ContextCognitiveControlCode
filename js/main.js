@@ -25,6 +25,7 @@ let practiceAccCutoff = 0; // this is the percentage of practice trials you need
 let taskArray, locArray;
 let nRepeatTrials = 1; //how many trials from the learning blocks to reinstate in the test block
 let repeatArray;
+let repeatLog; //variable for if this trial was a repeat, and if so, which trial was it a repeat of
 
 // trial level information (default to lowest value)
 let trialCount = 1, blockTrialCount = 1, block = 1, accCount = 0;

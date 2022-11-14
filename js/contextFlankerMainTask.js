@@ -80,7 +80,12 @@ function buildRepeatArray(){
 
     while(repeatOnTheseTrials.length < nRepeatTrials){
         let testTrial = randIntFromInterval(nLearnBlocks * trialsPerLearnBlock+1, nLearnBlocks * trialsPerLearnBlock + trialsPerTestBlock) //lower is the first test block trial count, upper is the last. Test if these values work though, again might have inclusive issues.
-        if(repeatOnTheseTrials.indexOf(testTrial) === -1) repeatOnTheseTrials.push(testTrial);
+        if (repeatOnTheseTrials.indexOf(testTrial) === -1) repeatOnTheseTrials.push(testTrial);
+
+        //check if there would be consecutive repeated trials if we add this trial, and don't add it if so.
+        if (ContainsConsecutiveValue(repeatOnTheseTrials)) {
+            repeatOnTheseTrials.pop(); //the array didn't have consecutive values until we added this most recent value, so pop it out.
+        }
     }
 
     // repeatTheseTrials = Array.from({length: nRepeatTrials}, () => Math.floor(Math.random() * (nLearnBlocks * trialsPerLearnBlock)))

@@ -73,30 +73,39 @@ function decimalToPercent(decimal){
   return Math.round(decimal * 100 * 100) / 100;
 }
 
-/** getTargetSize takes an image.src and returns the flanker size
+
+
+//untested
+/** removes first occurrence of target value from array
  * 
- * @param {string} src : filepath to an image named as M#.jpg or N#.jpg, where even # is smaller and odd # is larger
- * @returns 's' or 'l', according to image flanker size
+ * @param {array} arr : the array from which to remove the target value 
+ * @param {value} target : the value that will be removed from the array
+ * @returns {array} arr : the modified array without the first occurrence of the target value
  */
-function getTargetSize(src){
-
-  let num = src.match(/\d/g);
-  num = num.join('');
-
-  if(src.indexOf('images/') === -1) {
-    throw 'Please source to an image in the images subfolder.'
+function removeFirst(arr, target) {
+  let idx = arr.indexOf(target);
+  if (idx > -1) {
+    arr.splice(idx,1);
   }
 
-  // does same thing as commented out code below, need to test this though!
-  else if (isEven(num)) {
-    return 's';
+  return arr;
   }
 
-  // else if (num % 2 === 0) {
-  //   return 's'
-  // }
 
-  else {
-    return 'l';
+//light testing on browser seems to show this works.
+/** ContainsConsecutiveValue checks if a numerical array contains any consecutive values.
+ * @param {array}
+ * @returns {boolean} : true if array contains any consecutive values
+ */
+function ContainsConsecutiveValue(array){
+  array = array.sort((a,b)=>a-b);
+  let i = 1, d;
+  while (i < array.length) {
+    d = array[i] - array[i-1];
+    if (Math.abs(d) === 1) {
+      return true;
+    }
+    i++;
   }
+  return false;
 }

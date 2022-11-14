@@ -84,12 +84,30 @@ function stimScreen(){
     repeatTheseTrials = repeatArray[0];
     repeatOnTheseTrials = repeatArray[1];
 
-    // check if we're in the test block, which is the last one. Might need to modify in the future if we have multiple test blocks.
-    if (block === nBlocks) {
+    // check if we should repeat on this trial
+    if (repeatOnTheseTrials.includes(trialCount)) {
 
+      //select a random trial from repeatTheseTrials and draw it
+      repeatThisTrial = repeatTheseTrials[Math.floor(Math.random() * repeatTheseTrials.length)];
+      draw(imageSet[repeatThisTrial-1], loc=locArray[repeatThisTrial-1], flankerSize=drawMapping[taskArray[repeatThisTrial-1]][getTargetSize(imageSet[repeatThisTrial-1].src)]);
+      console.log('length of repeatTheseTrials before pop is: ' + length(repeatTheseTrials))
+      //breakpoint here
+
+      //remove the selected trial from repeatTheseTrials
+      let idx = repeatTheseTrials.indexOf(repeatThisTrial);
+      repeatTheseTrials.splice(idx,1);
+      // removeFirst(repeatTheseTrials,repeatThisTrial); //this should also remove the selected trial but dunno if it needs to be assigned to variable?
+      
+      repeatLog = repeatThisTrial; //store which trial was repeated for data logging
+      console.log('length of repeatTheseTrials after pop is: ' + length(repeatTheseTrials))
     }
-    //index the drawMapping dict twice, first with the congruency (from taskArray), second with the flanker size (using getTargetSize and the image.src)
-    draw(imageSet[trialCount-1], loc=locArray[trialCount-1], flankerSize=drawMapping[taskArray[trialCount-1]][getTargetSize(imageSet[trialCount-1].src)]);
+
+    //if we don't need to repeat this trial, draw the trialCount image
+    else {
+      //index the drawMapping dict twice, first with the congruency (from taskArray), second with the flanker size (using getTargetSize and the image.src)
+      draw(imageSet[trialCount-1], loc=locArray[trialCount-1], flankerSize=drawMapping[taskArray[trialCount-1]][getTargetSize(imageSet[trialCount-1].src)]);
+      repeatLog = NaN; //if trial isn't a repeat, datalog a NaN. Maybe do a False instead?
+    }
 
     //proceed to iti after delay
     stimTimeout = setTimeout(itiScreen, stimInterval);
@@ -199,55 +217,6 @@ function countDown(seconds){
     }
   }
   
-function bigBlockScreen(){
-    // block break with countdown so they don't pause too long
-    let minutesBreak = 3;
-    sectionType = "blockBreak";
-    sectionStart = new Date().getTime() - runStart;
-    keyListener = 0;
-    setTimeout(function(){keyListener = 7},1000);
-  
-    // display break screen (With timer)
-    drawBreakScreen("0" + minutesBreak,"00", minutesBreak);
-    blockBreakFunction(minutesBreak,0,minutesBreak);
-  
-function blockBreakFunction(minutes, seconds, max){
-      let time = minutes*60 + seconds;
-      ctx.fillStyle = "black";
-      sectionTimer = setInterval(function(){
-        if (time < 0) {return}
-        ctx.fillStyle = (time <= 60) ? "red" : "black";
-        let minutes = Math.floor(time / 60);
-        if (minutes < 10) minutes = "0" + minutes;
-        let seconds = Math.floor(time % 60);
-        if (seconds < 10) seconds = "0" + seconds;
-        drawBreakScreen(minutes, seconds, max);
-        time--;
-      }, 1000);
-    }
-  }
-  
-function drawBreakScreen(minutes, seconds, max){
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-    // draw timer (with color from previous function)
-    ctx.font = "bold 45px Arial";
-    ctx.fillText(minutes + ":" + seconds,canvas.width/2,canvas.height/2 - 100);
-  
-    // display miniblock text
-    ctx.fillStyle = "black";
-    ctx.font = "25px Arial";
-    ctx.fillText("This is a short break. Please don't pause for more than " + max + " minutes.",canvas.width/2,canvas.height/2 - 150);
-    if (nBlocks - block > 1) {
-      ctx.fillText("You are finished with block " + block + ". You have " + (nBlocks - block) + " blocks left.",canvas.width/2,canvas.height/2);
-    } else {
-      ctx.fillText("You are finished with block " + block + ". You have " + (nBlocks - block) + " block left.",canvas.width/2,canvas.height/2);
-    }
-    ctx.fillText("Your overall accuracy so far is " + Math.round((accCount/trialCount)*100) + "%.",canvas.width/2,canvas.height/2+50);
-    ctx.font = "bold 25px Arial";
-    ctx.fillText("Press any button to continue.",canvas.width/2,canvas.height/2 + 200);
-  }
-  
 function practiceAccuracyFeedback(accuracy){
     sectionStart = new Date().getTime() - runStart;
     sectionType = "pracFeedback";
@@ -344,3 +313,30 @@ function promptScreenSize(){
     }
   }
 
+/** getTargetSize takes an image.src and returns the flanker size
+ * 
+ * @param {string} src : filepath to an image named as M#.jpg or N#.jpg, where even # is smaller and odd # is larger
+ * @returns 's' or 'l', according to image flanker size
+ */
+function getTargetSize(src){
+
+  let num = src.match(/\d/g);
+  num = num.join('');
+
+  if(src.indexOf('images/') === -1) {
+    throw 'Please source to an image in the images subfolder.'
+  }
+
+  // does same thing as commented out code below, need to test this though!
+  else if (isEven(num)) {
+    return 's';
+  }
+
+  // else if (num % 2 === 0) {
+  //   return 's'
+  // }
+
+  else {
+    return 'l';
+  }
+}

@@ -51,8 +51,8 @@ function changeScreenBackgroundTo(color){
 
 /** clears (if true) the canvas for next task and sets the font and style
  * 
- * @param {um string?} font 
- * @param {also string?} fillStyle 
+ * @param {string} font 
+ * @param {string} fillStyle 
  * @param {boolean} clear
  */
 function resetCanvas(font, fillStyle, clear = true){
@@ -73,9 +73,6 @@ function decimalToPercent(decimal){
   return Math.round(decimal * 100 * 100) / 100;
 }
 
-
-
-//untested
 /** removes first occurrence of target value from array
  * 
  * @param {array} arr : the array from which to remove the target value 

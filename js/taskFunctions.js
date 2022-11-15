@@ -85,8 +85,9 @@ function stimScreen(){
   //only run the repeat trial stuff for main1
   if(expStage==='main1'){
 
-    let localRepeatTheseTrials = repeatArray[0];
-    let localRepeatOnTheseTrials = repeatArray[1];
+    let localRepeatTheseTrials = repeatArray[0].slice();
+    console.log('localRepeatTheseTrials : ' + localRepeatTheseTrials)
+    let localRepeatOnTheseTrials = repeatArray[1].slice();
 
     // check if we should repeat on this trial
     if (localRepeatOnTheseTrials.includes(trialCount)) {
@@ -114,6 +115,7 @@ function stimScreen(){
     }
 
   }
+  
   //for practice exp stage, just draw
   else{
     draw(imageSet[trialCount-1], loc=locArray[trialCount-1], flankerSize=drawMapping[taskArray[trialCount-1]][getTargetSize(imageSet[trialCount-1].src)]);

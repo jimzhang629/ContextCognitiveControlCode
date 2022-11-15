@@ -22,6 +22,7 @@ function contextFlankerMainTask(){
     taskArray = buildMainTaskArray();
     locArray = buildMainLocArray();
     repeatArray = buildRepeatArray();
+    console.log(repeatArray[0]);
     
     logExpArrays(); //store the experiment arrays. Hopefully this only runs once. Test it.
 
@@ -90,30 +91,10 @@ function buildRepeatArray(){
             repeatOnTheseTrials.pop(); //the array didn't have consecutive values until we added this most recent value, so pop it out.
         }
     }
-
     // repeatTheseTrials = Array.from({length: nRepeatTrials}, () => Math.floor(Math.random() * (nLearnBlocks * trialsPerLearnBlock)))
     // repeatOnTheseTrials = Array.from({length: nRepeatTrials}, () => Math.floor(Math.random() * (nLearnBlocks * trialsPerLearnBlock)))
     return [repeatTheseTrials, repeatOnTheseTrials];
 }
-
-
-
-// function buildLearnLocArray(){
-//     let learnLocArray = [];
-    
-//     for (let i=0; i < nLearnBlocks + 1; i++){
-//         // add the location of each learning block, trialsPerLearnBlock times, to the locArray. Assumes learning arrays come before test array.
-//         let learnBlockLocArray = new Array(trialsPerLearnBlock).fill(getBlockCongruencies(blockOrder[i]).loc);
-//         learnLocArray = learnLocArray.concat(learnBlockLocArray);
-//     }
-
-//     console.log('learnLocArray is: ' + learnLocArray);
-//     return learnLocArray;
-// }
-
-// function buildTestLocArray(){
-
-// }
 
 
 /** buildBlockArr creates an array of congruency values based on block parameters
@@ -123,7 +104,6 @@ function buildRepeatArray(){
 function buildBlockArr(blockLetter){
     let blockConProp = getBlockCongruencies(blockLetter).c;
     let blockArray = new Array(Math.floor(trialsPerBlock * blockConProp)).fill('c');
-    console.log('blockConProp: ' + blockConProp);
     blockArray = blockArray.concat(new Array(trialsPerBlock - blockArray.length).fill('i'));
     return shuffle(blockArray);
 }

@@ -150,7 +150,6 @@ function experimentFlow(){
     }
   }
 
-
   function keyReleaseListener(event){
     // expected key press during task
     if (keyListener == 2){

@@ -30,5 +30,3 @@ selectedImages = shuffle(selectedImages);
 
 let selectedPracticeImages = selectedImages.slice(0,nPracticeTrials);
 let selectedTestImages = selectedImages.slice(nPracticeTrials);
-console.log("practice imgs: ", selectedPracticeImages);
-console.log("test imgs: ", selectedTestImages);

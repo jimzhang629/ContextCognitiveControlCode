@@ -15,7 +15,6 @@ function logSectionData(){
 function logMainTask(){
   //blockLetter is undefined..
   data.push([taskName, sectionType, block, blockOrder, blockOrder[block], trialCount, blockTrialCount, stimOnset, respOnset, respTime, getAccuracy(acc), locArray[trialCount-1], taskArray[trialCount-1], imageSet[trialCount-1].src], repeatLog)
-  console.log('logged main task');
   console.log('block is: ' + block);
 }
 

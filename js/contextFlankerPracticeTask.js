@@ -22,7 +22,6 @@ function contextFlankerPracticeTask(){
     //create task arrays
     taskArray = buildPracticeTaskArray();
     locArray = buildPracticeLocArray();
-    console.log('practiceTaskArray:' + taskArray);
     // selectedImages.forEach(i => draw(i)); //run a trial on each target image in selectedImages array
     // start task after countdown (calls taskFunc)
     countDown(3);

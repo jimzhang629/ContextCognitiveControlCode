@@ -34,7 +34,7 @@ let trialCount = 1, blockTrialCount = 1, block = 1, accCount = 0;
 
 //other global vars
 let canvas, ctx; // global canvas variable
-let sampleSize = nPracticeTrials + nBlocks * trialsPerBlock - nRepeatTrials; //number of images we need is # of practice trials + # of test trials - # of repeated trials
+let sampleSize = nPracticeTrials + nBlocks * trialsPerBlock; //might need to subtract the number of repeat trials from this, but don't see the harm in grabbing extra images
 let taskFunc, transitionFunc, stimFunc, taskName;
 let acc, stimOnset, respOnset, respTime, partResp, runStart;
 let stimTimeout, breakOn = false, repeatNecessary = false, data=[];

@@ -115,25 +115,26 @@ function contextFlankerMainTrial(){
 
     // if task is over, proceed back to next instruction (or end of experiment)
     if (trialCount > nBlocks * trialsPerBlock) {
-    navigateInstructionPath();
-    return;
+        navigateInstructionPath();
+        return;
     }
 
     // increment block
     if ((trialCount - 1) % trialsPerBlock == 0 && (trialCount - 1) != 0) {
-    block++;
+        countDown(10);
+        block++;
     }
 
     // person is still holding down key from previous trial, tell them to let go
     if (keyListener == 3){
-    promptLetGo();
-    return;
+        promptLetGo();
+        return;
     }
 
     // if they minimized the screen, tell them its too small.
     if (!screenSizeIsOk()){
-    promptScreenSize();
-    return;
+        promptScreenSize();
+        return;
     }
 
     // none of the above happened, proceed to trial

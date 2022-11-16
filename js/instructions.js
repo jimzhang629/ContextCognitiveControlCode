@@ -79,7 +79,7 @@ function getInstructionText(slideNum, expStage){
         case 1:
           return "In this experiment, you will categorize a centrally presented image as typically larger or smaller than a basketball.";
         case 2:
-          return "The centrally presented image will be flanked by two distracting images, please ignore these when making your decision.";
+          return "The centrally presented image will be flanked by two distracting basketball images, please ignore these when making your decision.";
         case 3:
           return "Please press 'S' to indicate smaller than a basketball, and 'L' to indicate larger. ";
         case 4:
@@ -93,7 +93,7 @@ function getInstructionText(slideNum, expStage){
         case 2:
           return "You will now complete the main experiment. This should take roughly 30 minutes.";
         case 3:
-          return "As a reminder, press 'S' to indicate if the center image is typically smaller than a basketball, and 'L' if it is typically larger.";
+          return "As a reminder, press 'S' to indicate if the center image is typically smaller than a basketball, and 'L' if it is typically larger. Ignore the flanking basketball images.";
         case 4:
           return 'You will need to score 75% accuracy to receive credit. A trial that is too slow is counted as incorrect.'
         case 5:

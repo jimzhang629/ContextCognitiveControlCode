@@ -115,7 +115,7 @@ function stimScreen(){
     }
 
   }
-  
+
   //for practice exp stage, just draw
   else{
     draw(imageSet[trialCount-1], loc=locArray[trialCount-1], flankerSize=drawMapping[taskArray[trialCount-1]][getTargetSize(imageSet[trialCount-1].src)]);
@@ -227,7 +227,57 @@ function countDown(seconds){
       taskFunc();
     }
   }
+
+/** bad way of making them wait after a block
+ * 
+ * @param {*} seconds 
+ */
+function countDownEndOfBlock(seconds){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "black";
+    ctx.font = "bold 80px Arial";
+    if (seconds > 0){
+      ctx.fillText(seconds,canvas.width/2,canvas.height/2)
+      setTimeout(function(){countDownEndOfBlock(seconds - 1)},1000);
+    } else {
+      fixationScreen();
+    }
+}
+
+function blockDelay(seconds){
+
+  setTimeout(fixationScreen,1000*seconds); //display fixation screen after however many seconds
+
+  let delayTimeLeft = seconds;
+
+  //need to clear, and not show it after every trial
+  setInterval(function() {
   
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "black";
+  ctx.font = "bold 50px Arial";
+
+  if (nBlocks - block > 1) {
+    ctx.fillText("You are finished with block " + block + ". You have " + (nBlocks - block) + " blocks left.",canvas.width/2,canvas.height/2);
+  } else {
+    ctx.fillText("You are finished with block " + block + ". You have " + (nBlocks - block) + " block left.",canvas.width/2,canvas.height/2);
+  }
+
+  ctx.fillText("Your overall accuracy so far is " + Math.round((accCount/trialCount)*100) + "%.",canvas.width/2,canvas.height/2+50);
+
+    ctx.fillText("The next block will start in " + delayTimeLeft + " seconds", canvas.width/2, canvas.height/2 + 100);
+    if (delayTimeLeft < 0) {
+      clearInterval();
+      return;
+    }
+    delayTimeLeft--;
+
+    }, 1000);
+  
+  
+  block++; 
+}
+
 function practiceAccuracyFeedback(accuracy){
     sectionStart = new Date().getTime() - runStart;
     sectionType = "pracFeedback";

@@ -119,11 +119,7 @@ function contextFlankerMainTrial(){
         return;
     }
 
-    // increment block
-    if ((trialCount - 1) % trialsPerBlock == 0 && (trialCount - 1) != 0) {
-        countDown(10);
-        block++;
-    }
+    
 
     // person is still holding down key from previous trial, tell them to let go
     if (keyListener == 3){
@@ -136,7 +132,15 @@ function contextFlankerMainTrial(){
         promptScreenSize();
         return;
     }
+    // increment block and delay for however many seconds we want
+    if ((trialCount - 1) % trialsPerBlock == 0 && (trialCount - 1) != 0) {
+        countDownEndOfBlock(10);
+        block++;
+        
+    }
 
+    else {
     // none of the above happened, proceed to trial
     fixationScreen();
+    }
 }

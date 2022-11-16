@@ -16,7 +16,7 @@ let itiMin = (speed == "fast") ? 10 : 1200;
 let itiMax = (speed == "fast") ? 10 : 1400;
 let itiStep = 50;
 let trialInput;
-
+// let delayBtwnBlocks = 10;
 
 // for practice task
 let nPracticeTrials = 1;
@@ -185,7 +185,7 @@ function experimentFlow(){
       sectionEnd = new Date().getTime() - runStart;
       logSectionData();
       keyListener = 0;
-  
+      
       // increment block information before beginning next block
       block++;
       blockLetter = blockOrder[block - 1];

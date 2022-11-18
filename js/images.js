@@ -32,7 +32,6 @@ let unselectedSRCs = imageSRCs.filter(image => !selectedSRCs.includes(image))
 let selectedImages = new Array(selectedSRCs.length);
 
 for (var i = 0; i < selectedImages.length; i++) {
-  selectedImages[i] = new Image(500,300);
   // img = new Imagw
   // img.src = src
   // dict = {
@@ -41,7 +40,18 @@ for (var i = 0; i < selectedImages.length; i++) {
   //   posit
   // }
   // Array.push (dict)
-  selectedImages[i].src = selectedSRCs[i];
+  
+  selectedImg = new Image(500,300);
+  selectedImg.src = selectedSRCs[i];
+
+  // wrap the image in an object, so that we can add congruency, location, block info later in contextFlankerMainTask.js and such.
+  imgWrapper = {
+    img: selectedImg,
+    //add congruency, position, and block keys when initializing the main task
+  }
+
+  selectedImages[i] = imgWrapper;
+
 }
 
 selectedImages = shuffle(selectedImages);

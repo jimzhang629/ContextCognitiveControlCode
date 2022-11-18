@@ -54,6 +54,8 @@ for (var i = 0; i < selectedImages.length; i++) {
 
 }
 
+//does github desktop save changes
+
 selectedImages = shuffle(selectedImages);
 
 let selectedPracticeImages = selectedImages.slice(0,nPracticeTrials);

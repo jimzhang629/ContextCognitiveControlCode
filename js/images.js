@@ -51,7 +51,7 @@ for (var i = 0; i < selectedImages.length; i++) {
   }
 
   selectedImages[i] = imgWrapper;
-
+//github desktop test
 }
 
 selectedImages = shuffle(selectedImages);

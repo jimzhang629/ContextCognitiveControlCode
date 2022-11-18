@@ -94,7 +94,7 @@ function stimScreen(){
 
       //select a random trial from localRepeatTheseTrials and draw it
       repeatThisTrial = localRepeatTheseTrials[Math.floor(Math.random() * localRepeatTheseTrials.length)];
-      draw(imageSet[repeatThisTrial-1], loc=locArray[repeatThisTrial-1], flankerSize=drawMapping[taskArray[repeatThisTrial-1]][getTargetSize(imageSet[repeatThisTrial-1].src)]);
+      draw(imageSet[repeatThisTrial-1], loc=locArray[repeatThisTrial-1], flankerSize=drawMapping[conArray[repeatThisTrial-1]][getTargetSize(imageSet[repeatThisTrial-1].src)]);
       console.log('length of localRepeatTheseTrials before pop is: ' + localRepeatTheseTrials.length);
       //breakpoint here
 
@@ -109,8 +109,8 @@ function stimScreen(){
 
     //if we don't need to repeat this trial, draw the trialCount image
     else {
-      //index the drawMapping dict twice, first with the congruency (from taskArray), second with the flanker size (using getTargetSize and the image.src)
-      draw(imageSet[trialCount-1], loc=locArray[trialCount-1], flankerSize=drawMapping[taskArray[trialCount-1]][getTargetSize(imageSet[trialCount-1].src)]);
+      //index the drawMapping dict twice, first with the congruency (from conArray), second with the flanker size (using getTargetSize and the image.src)
+      draw(imageSet[trialCount-1], loc=locArray[trialCount-1], flankerSize=drawMapping[conArray[trialCount-1]][getTargetSize(imageSet[trialCount-1].src)]);
       repeatLog = NaN; //if trial isn't a repeat, datalog a NaN. Maybe do a False instead?
     }
 
@@ -118,7 +118,7 @@ function stimScreen(){
 
   //for practice exp stage, just draw
   else{
-    draw(imageSet[trialCount-1], loc=locArray[trialCount-1], flankerSize=drawMapping[taskArray[trialCount-1]][getTargetSize(imageSet[trialCount-1].src)]);
+    draw(imageSet[trialCount-1], loc=locArray[trialCount-1], flankerSize=drawMapping[conArray[trialCount-1]][getTargetSize(imageSet[trialCount-1].src)]);
   }
   //proceed to iti after delay
   stimTimeout = setTimeout(itiScreen, stimInterval);
@@ -244,39 +244,39 @@ function countDownEndOfBlock(seconds){
     }
 }
 
-function blockDelay(seconds){
+// function blockDelay(seconds){
 
-  setTimeout(fixationScreen,1000*seconds); //display fixation screen after however many seconds
+//   setTimeout(fixationScreen,1000*seconds); //display fixation screen after however many seconds
 
-  let delayTimeLeft = seconds;
+//   let delayTimeLeft = seconds;
 
-  //need to clear, and not show it after every trial
-  setInterval(function() {
+//   //need to clear, and not show it after every trial
+//   setInterval(function() {
   
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "black";
-  ctx.font = "bold 50px Arial";
+//   ctx.clearRect(0, 0, canvas.width, canvas.height);
+//   ctx.fillStyle = "black";
+//   ctx.font = "bold 50px Arial";
 
-  if (nBlocks - block > 1) {
-    ctx.fillText("You are finished with block " + block + ". You have " + (nBlocks - block) + " blocks left.",canvas.width/2,canvas.height/2);
-  } else {
-    ctx.fillText("You are finished with block " + block + ". You have " + (nBlocks - block) + " block left.",canvas.width/2,canvas.height/2);
-  }
+//   if (nBlocks - block > 1) {
+//     ctx.fillText("You are finished with block " + block + ". You have " + (nBlocks - block) + " blocks left.",canvas.width/2,canvas.height/2);
+//   } else {
+//     ctx.fillText("You are finished with block " + block + ". You have " + (nBlocks - block) + " block left.",canvas.width/2,canvas.height/2);
+//   }
 
-  ctx.fillText("Your overall accuracy so far is " + Math.round((accCount/trialCount)*100) + "%.",canvas.width/2,canvas.height/2+50);
+//   ctx.fillText("Your overall accuracy so far is " + Math.round((accCount/trialCount)*100) + "%.",canvas.width/2,canvas.height/2+50);
 
-    ctx.fillText("The next block will start in " + delayTimeLeft + " seconds", canvas.width/2, canvas.height/2 + 100);
-    if (delayTimeLeft < 0) {
-      clearInterval();
-      return;
-    }
-    delayTimeLeft--;
+//   ctx.fillText("The next block will start in " + delayTimeLeft + " seconds", canvas.width/2, canvas.height/2 + 100);
+//     if (delayTimeLeft < 0) {
+//       clearInterval();
+//       return;
+//     }
+//     delayTimeLeft--;
 
-    }, 1000);
+//     }, 1000);
   
   
-  block++; 
-}
+//   block++; 
+// }
 
 function practiceAccuracyFeedback(accuracy){
     sectionStart = new Date().getTime() - runStart;

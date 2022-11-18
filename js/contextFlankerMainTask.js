@@ -19,14 +19,14 @@ function contextFlankerMainTask(){
 
     //draw the trial input, which is one of the practice images in this case
     //create task arrays
-    taskArray = buildMainTaskArray();
+    conArray = buildMainConArray();
     locArray = buildMainLocArray();
     repeatArray = buildRepeatArray();
     console.log(repeatArray[0]);
     
     logExpArrays(); //store the experiment arrays. Hopefully this only runs once. Test it.
 
-    console.log('taskArray:' + taskArray);
+    console.log('conArray:' + conArray);
     console.log('repeatTheseTrials: ' + repeatArray[0]);
     // start task after countdown (calls taskFunc)
     countDown(3);
@@ -35,22 +35,22 @@ function contextFlankerMainTask(){
 // don't forget to do locations and reinstatements for test block!
 
 /** 
- * buildTaskArray creates an array object that contains two subarrays, one more proportionally congruent and the other more proportionally incongruent.
+ * buildConArray creates an array object that contains two subarrays, one more proportionally congruent and the other more proportionally incongruent.
  * left button press (Z) is congruent, right button press (M) is incongruent.
  * @param {float} conProp: congruency proportion for this array. Must be between 0 and 1.
- * @returns {array} taskArray: a concatenated array of randomly shuffled blocks of trials in the order specified by blockOrder
+ * @returns {array} conArray: a concatenated array of randomly shuffled blocks of trials in the order specified by blockOrder
  */
-function buildMainTaskArray(){
+function buildMainConArray(){
 
-    let taskArray = [];
+    let conArray = [];
 
     // untested
     blockOrder.forEach(blockLetter => {
         blockArr = buildBlockArr(blockLetter);
-        taskArray = taskArray.concat(blockArr);
+        conArray = conArray.concat(blockArr);
     });
 
-    return taskArray;
+    return conArray;
 }
 
 //put the learn and test location arrays in one main array
@@ -134,9 +134,10 @@ function contextFlankerMainTrial(){
     }
     // increment block and delay for however many seconds we want
     if ((trialCount - 1) % trialsPerBlock == 0 && (trialCount - 1) != 0) {
+        console.log('last trial before countdown: ' + trialCount);
         countDownEndOfBlock(10);
         block++;
-        
+
     }
 
     else {

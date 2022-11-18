@@ -20,7 +20,7 @@ function contextFlankerPracticeTask(){
 
     //draw the trial input, which is one of the practice images in this case
     //create task arrays
-    taskArray = buildPracticeTaskArray();
+    conArray = buildPracticeConArray();
     locArray = buildPracticeLocArray();
     // selectedImages.forEach(i => draw(i)); //run a trial on each target image in selectedImages array
     // start task after countdown (calls taskFunc)
@@ -29,22 +29,22 @@ function contextFlankerPracticeTask(){
 }
 
 /** 
- * buildTaskArray creates an array object that contains two subarrays, one more proportionally congruent and the other more proportionally incongruent.
+ * buildConArray creates an array object that contains two subarrays, one more proportionally congruent and the other more proportionally incongruent.
  * left button press (Z) is congruent, right button press (M) is incongruent.
  * @param {int} nTrials : how many trials you want the array to be
  * @param {float} conProp: congruency proportion for this array. Must be between 0 and 1.
- * @returns {array} taskArray: randomly shuffled array of trials with average proportion congruency equal to conProp
+ * @returns {array} conArray: randomly shuffled array of trials with average proportion congruency equal to conProp
  */
-function buildPracticeTaskArray(){
+function buildPracticeConArray(){
 
     if (practiceConProp < 0 || practiceConProp > 1){
         throw 'Please choose a congruency proportion (conProp) between 0 and 1.';
     }
     // left press is congruent and right press is incongruent, make array by adding con trials first, then inc trials.
 
-    let taskArray = new Array(Math.floor(nPracticeTrials * practiceConProp)).fill('c'); 
-    taskArray = taskArray.concat(new Array(nPracticeTrials - taskArray.length).fill('i'));
-    return shuffle(taskArray);
+    let conArray = new Array(Math.floor(nPracticeTrials * practiceConProp)).fill('c'); 
+    conArray = conArray.concat(new Array(nPracticeTrials - conArray.length).fill('i'));
+    return shuffle(conArray);
 }
 
 

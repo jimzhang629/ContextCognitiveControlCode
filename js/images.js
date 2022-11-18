@@ -18,7 +18,8 @@ for (let i = 1; i <= 272; i++) {
   if(badImages.includes(`M${i}` || `N${i}`)){
     continue;
   }
-
+  
+  //check if it exists first before pushing it
   imageSRCs.push(`./images/M${i}.jpg`); //need ../ for mac but ./ for the people.duke website?
   imageSRCs.push(`./images/N${i}.jpg`);
 }
@@ -32,6 +33,14 @@ let selectedImages = new Array(selectedSRCs.length);
 
 for (var i = 0; i < selectedImages.length; i++) {
   selectedImages[i] = new Image(500,300);
+  // img = new Imagw
+  // img.src = src
+  // dict = {
+  //   image: img
+  //   diff: 
+  //   posit
+  // }
+  // Array.push (dict)
   selectedImages[i].src = selectedSRCs[i];
 }
 

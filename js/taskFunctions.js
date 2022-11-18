@@ -5,6 +5,7 @@
 */
 
 // let flankerSize = 'small';
+//git test
 
 //maybe do this by shifting the canvas up and down instead of the image.
 function draw(centerImg, loc='center', flankerSize='small') {

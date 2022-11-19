@@ -119,7 +119,7 @@ function stimScreen(){
 
   //for practice exp stage, just draw
   else{
-    draw(imageSet[trialCount-1].img, loc=locArray[trialCount-1], flankerSize=drawMapping[conArray[trialCount-1]][getTargetSize(imageSet[trialCount-1].img.src)]);
+    draw(imageSet[trialCount-1].img, loc=imageSet[trialCount-1].loc, flankerSize=drawMapping[imageSet[trialCount-1].con][getTargetSize(imageSet[trialCount-1].img.src)]);
   }
   //proceed to iti after delay
   stimTimeout = setTimeout(itiScreen, stimInterval);

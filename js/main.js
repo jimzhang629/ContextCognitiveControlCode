@@ -8,8 +8,8 @@ let nTestBlocks = 1;
 let trialsPerBlock = 3;
 let nBlocks = nLearnBlocks + nTestBlocks; //this should always be 3 for this experiment I think..
 
-let trialsPerLearnBlock = 2; //this is kinda redundant with trialsPerBlock rn but might use it in the future.
-let trialsPerTestBlock = 2; //this can be changed if we want, I think.
+let trialsPerLearnBlock = 3; //this is kinda redundant with trialsPerBlock rn but might use it in the future.
+let trialsPerTestBlock = 3; //this can be changed if we want, I think.
 let stimInterval = (speed == "fast") ? 10 : 2500;
 let fixInterval = (speed == "fast") ? 10 : 500;
 let itiMin = (speed == "fast") ? 10 : 1200;
@@ -27,6 +27,7 @@ let practiceAccCutoff = 0; // this is the percentage of practice trials you need
 let conArray, locArray;
 let nRepeatTrials = 1; //how many trials from the learning blocks to reinstate in the test block
 let repeatArray;
+let testArray;
 let repeatLog; //variable for if this trial was a repeat, and if so, which trial was it a repeat of
 
 // trial level information (default to lowest value)

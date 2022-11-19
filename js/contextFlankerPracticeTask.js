@@ -12,16 +12,30 @@ function contextFlankerPracticeTask(){
     hideCursor();
     changeScreenBackgroundTo("white");
 
-    // global variables for functions
-    taskFunc = practiceTrialFunc;
-    transitionFunc = itiScreen;
-    imageSet = selectedPracticeImages; //attempt to be more modular, but honestly don't need this variable, can just set it in stimScreen.
-    stimFunc = draw; //this is the actual trial function that gets run by stimScreen. For this experiment, don't really need this variable since it will always be draw().
-
-    //draw the trial input, which is one of the practice images in this case
     //create task arrays
     conArray = buildPracticeConArray();
     locArray = buildPracticeLocArray();
+
+    // global variables for functions
+    taskFunc = practiceTrialFunc;
+    transitionFunc = itiScreen;
+
+    //assign congruency and location values to each practice image (make this more efficient later)
+    for (let i=0; i < conArray.length; i++) {
+        selectedPracticeImages[i].con = conArray[i];
+    }
+
+    for (let i=0; i< locArray.length; i++) {
+        selectedPracticeImages[i].loc = locArray[i];
+    }
+
+    imageSet = selectedPracticeImages; //attempt to be more modular, but honestly don't need this variable, can just set it in stimScreen.
+    console.log('selectedPracticeImages: ' + selectedPracticeImages);
+
+    stimFunc = draw; //this is the actual trial function that gets run by stimScreen. For this experiment, don't really need this variable since it will always be draw().
+
+    //draw the trial input, which is one of the practice images in this case
+    
     // selectedImages.forEach(i => draw(i)); //run a trial on each target image in selectedImages array
     // start task after countdown (calls taskFunc)
     countDown(3);

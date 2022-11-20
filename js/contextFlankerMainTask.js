@@ -116,8 +116,8 @@ function buildTestArray(){
         //randomly add 20 trials from each to testArray
         cArray = shuffle(cArray);
         iArray = shuffle(iArray);
-        testArray.concat(cArray.slice(19)); //I hope slice actually does this lol.
-        testArray.concat(iArray.slice(19));
+        testArray.concat(cArray.slice(0,19)); //I hope slice actually does this lol.
+        testArray.concat(iArray.slice(0,19));
 
         //increment to next learning block
         block++;
@@ -150,14 +150,14 @@ function buildTestArray(){
         //randomly add 20 trials from each to testArray
         cArray = shuffle(cArray);
         iArray = shuffle(iArray);
-        testArray.concat(cArray.slice(19)); //I hope slice actually does this lol.
-        testArray.concat(iArray.slice(19));
+        testArray.concat(cArray.slice(0,19)); //I hope slice actually does this lol.
+        testArray.concat(iArray.slice(0,19));
 
         //increment to next test block
         block++;
     }
 
-    return testArray
+    return shuffle(testArray);
 }
 
 

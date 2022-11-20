@@ -10,6 +10,13 @@ let nBlocks = nLearnBlocks + nTestBlocks; //this should always be 3 for this exp
 
 let trialsPerLearnBlock = 3; //this is kinda redundant with trialsPerBlock rn but might use it in the future.
 let trialsPerTestBlock = 3; //this can be changed if we want, I think.
+let repeatTrialsPerCondition = 1;
+let repeat = true; //first trial of test block is a repeat trial drawn from testArray
+
+  if(repeatTrialsPerCondition > Math.floor(1+trialsPerLearnBlock/2)){
+    throw('Too many repeat trials, please lower repeatTrialsPerCondition in main.js');
+  }
+
 let stimInterval = (speed == "fast") ? 10 : 2500;
 let fixInterval = (speed == "fast") ? 10 : 500;
 let itiMin = (speed == "fast") ? 10 : 1200;
@@ -44,6 +51,8 @@ let keyListener = 0; // see below
 
 let blockOrder = getBlockOrder(randIntFromInterval(1,4));
 let blockLetter;
+let trialImg; //use this for data logging which image wrapper is displayed on this trial
+
 // see counterbalancing.js for block order stuff. Define getBlockOrder in some other function.
 
 function experimentFlow(){

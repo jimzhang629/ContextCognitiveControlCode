@@ -33,8 +33,11 @@ function contextFlankerMainTask(){
 
     // repeatArray = buildRepeatArray();
     imageSet = selectedTestImages; //attempt to be more modular, but honestly don't need this variable, can just set it in stimScreen.
-    testArray = buildTestArray();
-
+    
+    testBlockArrays = buildTestBlockArrays();
+    testArray = testBlockArrays[0];
+    novelArray = testBlockArrays[1];
+    
     logExpArrays(); //store the experiment arrays. Hopefully this only runs once. Test it.
 
     console.log('conArray:' + conArray);
@@ -54,7 +57,6 @@ function buildMainConArray(){
 
     let conArray = [];
 
-    
     blockOrder.forEach(blockLetter => {
         blockArr = buildBlockArr(blockLetter);
         conArray = conArray.concat(blockArr);
@@ -80,13 +82,13 @@ function buildMainLocArray(){
 /** buildTestArray holds out 20 congruent and incongruent trials from each block, to be alternately drawn with novel trials in the test block.
  * 
  */
-function buildTestArray(){
+function buildTestBlockArrays(){
     //make this modular based on nLearnBlocks, trialsPerLearnBlock
 
     let block = 1;
     
     let testArray = [];
-
+    let novelArray = [];
     //go through each learn block, sort each trial by its congruency, and randomly choose 20 of both congruencies to be used as test trials.
     //i think this could easily be replaced by a sort function but *shrug* bad code is fun code.
     while(block < nLearnBlocks+1){
@@ -114,8 +116,8 @@ function buildTestArray(){
         //randomly add 20 trials from each to testArray
         cArray = shuffle(cArray);
         iArray = shuffle(iArray);
-        testArray.concat(cArray.slice(0,19)); //I hope slice actually does this lol.
-        testArray.concat(iArray.slice(0,19));
+        testArray = testArray.concat(cArray.slice(0,19)); //I hope slice actually does this lol.
+        testArray = testArray.concat(iArray.slice(0,19));
 
         //increment to next learning block
         block++;
@@ -150,14 +152,18 @@ function buildTestArray(){
         //randomly add 20 trials from each to testArray
         cArray = shuffle(cArray);
         iArray = shuffle(iArray);
-        testArray.concat(cArray.slice(0,19)); //I hope slice actually does this lol.
-        testArray.concat(iArray.slice(0,19));
-
+        testArray = testArray.concat(cArray.slice(0,repeatTrialsPerCondition-1)); //I hope slice actually does this lol.
+        testArray = testArray.concat(iArray.slice(0,repeatTrialsPerCondition-1));
+        
+        //add the rest of the trials in testBlock to novelArray
+        novelArray = novelArray.concat(cArray.slice(repeatTrialsPerCondition)); 
+        novelArray = novelArray.concat(iArray.slice(repeatTrialsPerCondition));
+        
         //increment to next test block
         block++;
     }
 
-    return shuffle(testArray);
+    return [shuffle(testArray), shuffle(novelArray)];
 }
 
 

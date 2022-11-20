@@ -82,45 +82,70 @@ function stimScreen(){
         'l': "large"
       }
     }
+  
+  // //only run the repeat trial stuff for main1
+  // if(expStage==='main1'){
 
-  //only run the repeat trial stuff for main1
-  if(expStage==='main1'){
+  //   let localRepeatTheseTrials = repeatArray[0].slice();
+  //   console.log('localRepeatTheseTrials : ' + localRepeatTheseTrials)
+  //   let localRepeatOnTheseTrials = repeatArray[1].slice();
 
-    let localRepeatTheseTrials = repeatArray[0].slice();
-    console.log('localRepeatTheseTrials : ' + localRepeatTheseTrials)
-    let localRepeatOnTheseTrials = repeatArray[1].slice();
+  //   // check if we should repeat on this trial
+  //   if (localRepeatOnTheseTrials.includes(trialCount)) {
 
-    // check if we should repeat on this trial
-    if (localRepeatOnTheseTrials.includes(trialCount)) {
+  //     //select a random trial from localRepeatTheseTrials and draw it
+  //     repeatThisTrial = localRepeatTheseTrials[Math.floor(Math.random() * localRepeatTheseTrials.length)];
+  //     draw(imageSet[repeatThisTrial-1], loc=locArray[repeatThisTrial-1], flankerSize=drawMapping[conArray[repeatThisTrial-1]][getTargetSize(imageSet[repeatThisTrial-1].src)]);
+  //     console.log('length of localRepeatTheseTrials before pop is: ' + localRepeatTheseTrials.length);
+  //     //breakpoint here
 
-      //select a random trial from localRepeatTheseTrials and draw it
-      repeatThisTrial = localRepeatTheseTrials[Math.floor(Math.random() * localRepeatTheseTrials.length)];
-      draw(imageSet[repeatThisTrial-1], loc=locArray[repeatThisTrial-1], flankerSize=drawMapping[conArray[repeatThisTrial-1]][getTargetSize(imageSet[repeatThisTrial-1].src)]);
-      console.log('length of localRepeatTheseTrials before pop is: ' + localRepeatTheseTrials.length);
-      //breakpoint here
-
-      //remove the selected trial from localRepeatTheseTrials
-      let idx = localRepeatTheseTrials.indexOf(repeatThisTrial);
-      localRepeatTheseTrials.splice(idx,1);
-      // removeFirst(localRepeatTheseTrials,repeatThisTrial); //this should also remove the selected trial but dunno if it needs to be assigned to variable?
+  //     //remove the selected trial from localRepeatTheseTrials
+  //     let idx = localRepeatTheseTrials.indexOf(repeatThisTrial);
+  //     localRepeatTheseTrials.splice(idx,1);
+  //     // removeFirst(localRepeatTheseTrials,repeatThisTrial); //this should also remove the selected trial but dunno if it needs to be assigned to variable?
       
-      repeatLog = repeatThisTrial; //store which trial was repeated for data logging
-      console.log('length of localRepeatTheseTrials after pop is: ' + localRepeatTheseTrials.length);
+  //     repeatLog = repeatThisTrial; //store which trial was repeated for data logging
+  //     console.log('length of localRepeatTheseTrials after pop is: ' + localRepeatTheseTrials.length);
+  //   }
+
+  //   //if we don't need to repeat this trial, draw the trialCount image
+  //   else {
+  //     //index the drawMapping dict twice, first with the congruency (from conArray), second with the flanker size (using getTargetSize and the image.src)
+  //     draw(imageSet[trialCount-1], loc=locArray[trialCount-1], flankerSize=drawMapping[conArray[trialCount-1]][getTargetSize(imageSet[trialCount-1].src)]);
+  //     repeatLog = NaN; //if trial isn't a repeat, datalog a NaN. Maybe do a False instead?
+  //   }
+
+  // }
+    
+  //for the test block, alternate between repeat trials and novel trials
+
+  if(block===nBlocks){
+    if (repeat) {
+      trialImg = _.sample(testArray); //choose random testArray image to draw
+
+      //remove this trial image from testArray so it doesn't get repeated again
+      idx = testArray.indexOf(trialImg);
+      testArray.splice(idx, 1);
     }
 
-    //if we don't need to repeat this trial, draw the trialCount image
     else {
-      //index the drawMapping dict twice, first with the congruency (from conArray), second with the flanker size (using getTargetSize and the image.src)
-      draw(imageSet[trialCount-1], loc=locArray[trialCount-1], flankerSize=drawMapping[conArray[trialCount-1]][getTargetSize(imageSet[trialCount-1].src)]);
-      repeatLog = NaN; //if trial isn't a repeat, datalog a NaN. Maybe do a False instead?
+      trialImg = _.sample(novelArray); //choose random novelArray image to draw
+
+      //remove this trial image from novelArray so it doesn't get repeated..
+      idx = novelArray.indexOf(trialImg);
+      novelArray.splice(idx,1);
     }
 
+    repeat = !repeat; //alternate between repeated trials and novel trials.
   }
 
-  //for practice exp stage, just draw
+  //for practice exp stage, as well as learning blocks, can just draw based on trialCount
   else{
-    draw(imageSet[trialCount-1].img, loc=imageSet[trialCount-1].loc, flankerSize=drawMapping[imageSet[trialCount-1].con][getTargetSize(imageSet[trialCount-1].img.src)]);
+    trialImg = imageSet[trialCount-1];
   }
+
+  //draw the trial image. Remember that this is actually an object defined in images.js.
+  draw(trialImg.img, loc=trialImg.loc, flankerSize=drawMapping[trialImg.con][getTargetSize(trialImg.img.src)]);
   //proceed to iti after delay
   stimTimeout = setTimeout(itiScreen, stimInterval);
 }

@@ -14,14 +14,14 @@ function logSectionData(){
 
 function logMainTask(){
   //blockLetter is undefined..
-  data.push([taskName, sectionType, block, blockOrder, blockOrder[block], trialCount, blockTrialCount, stimOnset, respOnset, respTime, getAccuracy(acc), locArray[trialCount-1], conArray[trialCount-1], imageSet[trialCount-1].src], repeatLog)
+  data.push([taskName, sectionType, block, blockOrder, blockOrder[block], trialCount, blockTrialCount, trialImg, stimOnset, respOnset, respTime, getAccuracy(acc), locArray[trialCount-1], conArray[trialCount-1], imageSet[trialCount-1].src], repeatLog)
   console.log('block is: ' + block);
 }
 
 function logPracticeTask(){
   // let distractorLocation = (distractionArr[trialCount - 1] == "d") ? distractorLocationArr[trialCount - 1] : NaN;
 
-  data.push([taskName, sectionType, NaN, NaN, NaN, trialCount, NaN, stimOnset, respOnset, respTime, getAccuracy(acc), locArray[trialCount-1], conArray[trialCount-1], imageSet[trialCount-1].src]);
+  data.push([taskName, sectionType, NaN, NaN, NaN, trialCount, NaN, trialImg, stimOnset, respOnset, respTime, getAccuracy(acc), locArray[trialCount-1], conArray[trialCount-1], imageSet[trialCount-1].src]);
 }
 
 /** logExpArrays stores the conArray, locArray, and repeatArray (which is actually two arrays)

@@ -93,11 +93,11 @@ function buildTestArray(){
     //i think this could easily be replaced by a sort function but *shrug* bad code is fun code.
     while(block < nLearnBlocks+1){
 
-        let cArray = [];
-        let iArray = [];
+        let cArray = []; //the array of congruent trials for each block
+        let iArray = []; // the array of incongruent trials for each block
 
-        blockStart = (block-1) * trialsPerLearnBlock; //the first trial in the block
-        blockEnd = block * trialsPerLearnBlock; //the last trial in the block, think i need to add +1 to for loop to make it inclusive
+        let blockStart = (block-1) * trialsPerLearnBlock; //the first trial in the block
+        let blockEnd = block * trialsPerLearnBlock; //the last trial in the block, think i need to add +1 to for loop to make it inclusive
 
         // go through each trial in the block, and add it to cArray if it's congruent, and iArray if it's incongruent
         for (let i=blockStart; i<blockEnd+1; i++) {
@@ -122,8 +122,40 @@ function buildTestArray(){
         //increment to next learning block
         block++;
     }
-    //test block
 
+    //add 20 congruent and incongruent test block trials. This should be incorporated into the learning block code, shouldn't have a separate while loop for it BUT get it working first.
+    while(block < nTestBlocks+1){
+
+        let cArray = []; //the array of congruent trials for each block
+        let iArray = []; // the array of incongruent trials for each block
+
+        let learnBlockOffset = trialsPerLearnBlock * nLearnBlocks; //because selectedTestImages is an array with the learn trials first, offset by them to get first test trial.
+        let blockStart = (block-1) * trialsPerTestBlock + learnBlockOffset; 
+        let blockEnd = block * trialsPerTestBlock + learnBlockOffset; //the last trial in the block, think i need to add +1 to for loop to make it inclusive
+
+        // go through each trial in the block, and add it to cArray if it's congruent, and iArray if it's incongruent
+        for (let i=blockStart; i<blockEnd+1; i++) {
+            if(selectedTestImages[i].con === 'c'){
+                cArray.push(selectedTestImages[i]);
+            }
+
+            else if (selectedTestImages[i].con === 'i'){
+                iArray.push(selectedTestImages[i]);
+            }
+
+            else{
+                throw 'Please use the strings c and i to define congruency';
+            }
+        }
+        //randomly add 20 trials from each to testArray
+        cArray = shuffle(cArray);
+        iArray = shuffle(iArray);
+        testArray.concat(cArray.slice(19)); //I hope slice actually does this lol.
+        testArray.concat(iArray.slice(19));
+
+        //increment to next test block
+        block++;
+    }
 
     return testArray
 }
@@ -176,7 +208,7 @@ function contextFlankerMainTrial(){
     sectionType = "main1";
 
     // if task is over, proceed back to next instruction (or end of experiment)
-    if (trialCount > nBlocks * trialsPerBlock) {
+    if (trialCount > (nLearnBlocks * trialsPerLearnBlock + nTestBlocks * trialsPerTestBlock)) {
         navigateInstructionPath();
         return;
     }

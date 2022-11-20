@@ -20,7 +20,7 @@ function contextFlankerMainTask(){
     taskFunc = contextFlankerMainTrial;
     transitionFunc = itiScreen;
 
-    //assign congruency and location values to each practice image (make this more efficient later)
+    //assign congruency and location values to each test image (make this more efficient later)
     for (let i=0; i < conArray.length; i++) {
         selectedTestImages[i].con = conArray[i];
     }
@@ -33,13 +33,11 @@ function contextFlankerMainTask(){
 
     
     // repeatArray = buildRepeatArray();
-    console.log(repeatArray[0]);
     imageSet = selectedTestImages; //attempt to be more modular, but honestly don't need this variable, can just set it in stimScreen.
 
     logExpArrays(); //store the experiment arrays. Hopefully this only runs once. Test it.
 
     console.log('conArray:' + conArray);
-    console.log('repeatTheseTrials: ' + repeatArray[0]);
     // start task after countdown (calls taskFunc)
     countDown(3);
 }
@@ -122,6 +120,8 @@ function buildTestArray(){
         //increment to next learning block
         block++;
     }
+
+    block = 1; //reset the block count for test blocks
 
     //add 20 congruent and incongruent test block trials. This should be incorporated into the learning block code, shouldn't have a separate while loop for it BUT get it working first.
     while(block < nTestBlocks+1){

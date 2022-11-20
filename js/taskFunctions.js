@@ -162,6 +162,8 @@ function itiScreen(){
       //if you failed, try again
         practiceAccuracyFeedback(decimalToPercent(accCount / nPracticeTrials));
       }
+
+      trialCount = 1; //reset trialCount to 1 for the main task
       return;
     }
   

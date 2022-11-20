@@ -146,6 +146,7 @@ function itiScreen(){
 
     // trial finished. iterate and proceed to next
     trialCount++; blockTrialCount++;
+    console.log('trialCount is ' + trialCount);
     setTimeout(taskFunc, itiInterval(itiMin, itiMax, itiStep));
   }
   

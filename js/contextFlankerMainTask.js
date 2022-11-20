@@ -31,9 +31,9 @@ function contextFlankerMainTask(){
 
     stimFunc = draw; //this is the actual trial function that gets run by stimScreen. For this experiment, don't really need this variable since it will always be draw().
 
-    
     // repeatArray = buildRepeatArray();
     imageSet = selectedTestImages; //attempt to be more modular, but honestly don't need this variable, can just set it in stimScreen.
+    testArray = buildTestArray();
 
     logExpArrays(); //store the experiment arrays. Hopefully this only runs once. Test it.
 
@@ -98,7 +98,7 @@ function buildTestArray(){
         let blockEnd = block * trialsPerLearnBlock; //the last trial in the block, think i need to add +1 to for loop to make it inclusive
 
         // go through each trial in the block, and add it to cArray if it's congruent, and iArray if it's incongruent
-        for (let i=blockStart; i<blockEnd+1; i++) {
+        for (let i=blockStart; i<blockEnd; i++) {
             if(selectedTestImages[i].con === 'c'){
                 cArray.push(selectedTestImages[i]);
             }
@@ -134,7 +134,7 @@ function buildTestArray(){
         let blockEnd = block * trialsPerTestBlock + learnBlockOffset; //the last trial in the block, think i need to add +1 to for loop to make it inclusive
 
         // go through each trial in the block, and add it to cArray if it's congruent, and iArray if it's incongruent
-        for (let i=blockStart; i<blockEnd+1; i++) {
+        for (let i=blockStart; i<blockEnd; i++) {
             if(selectedTestImages[i].con === 'c'){
                 cArray.push(selectedTestImages[i]);
             }

@@ -69,18 +69,19 @@ function buildMainConArray(){
 function buildMainLocArray(){
     
     let locArray = [];
-
+    let blockLocArray;
     blockOrder.forEach(blockLetter => {
 
         // add learn block locs first, then test block
         // do this in a dictionary later instead of if-else
-        if (blockletter != 'test') {
-            let blockLocArray = new Array(trialsPerLearnBlock).fill(getBlockCongruencies(blockLetter).loc);
+        if (blockLetter != 'test') {
+            blockLocArray = new Array(trialsPerLearnBlock).fill(getBlockCongruencies(blockLetter).loc);
         }
 
-        else{
-            let blockLocArray = new Array(trialsPerTestBlock).fill(getBlockCongruencies(blockLetter).loc);
+        else {
+            blockLocArray = new Array(trialsPerTestBlock).fill(getBlockCongruencies(blockLetter).loc);
         }
+        
         locArray = locArray.concat(blockLocArray);
     });
 
@@ -211,20 +212,23 @@ function buildTestBlockArrays(){
  */
 function buildBlockArr(blockLetter){
     let blockConProp = getBlockCongruencies(blockLetter).c;
+    let blockArray;
 
     //this should be done with a dictionary instead or some other better method
 
     if(blockLetter != 'test'){
-        let blockArray = new Array(Math.floor(trialsPerLearnBlock * blockConProp)).fill('c');
+        blockArray = new Array(Math.floor(trialsPerLearnBlock * blockConProp)).fill('c');
         blockArray = blockArray.concat(new Array(trialsPerLearnBlock - blockArray.length).fill('i'));
     }
 
     else {
-        let blockArray = new Array(Math.floor(trialsPerTestBlock * blockConProp)).fill('c');
+        blockArray = new Array(Math.floor(trialsPerTestBlock * blockConProp)).fill('c');
         blockArray = blockArray.concat(new Array(trialsPerTestBlock - blockArray.length).fill('i'));
     }
 
     return shuffle(blockArray);
+
+    
 }
   
 function contextFlankerMainTrial(){

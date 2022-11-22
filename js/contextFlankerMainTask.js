@@ -71,8 +71,16 @@ function buildMainLocArray(){
     let locArray = [];
 
     blockOrder.forEach(blockLetter => {
-        // add the location of each block, trialsPerBlock times, to the locArray. Kind of redundant, but we might mess with this in the future.
-        let blockLocArray = new Array(trialsPerBlock).fill(getBlockCongruencies(blockLetter).loc);
+
+        // add learn block locs first, then test block
+        // do this in a dictionary later instead of if-else
+        if (blockletter != 'test') {
+            let blockLocArray = new Array(trialsPerLearnBlock).fill(getBlockCongruencies(blockLetter).loc);
+        }
+
+        else{
+            let blockLocArray = new Array(trialsPerTestBlock).fill(getBlockCongruencies(blockLetter).loc);
+        }
         locArray = locArray.concat(blockLocArray);
     });
 
@@ -158,7 +166,7 @@ function buildTestBlockArrays(){
         //add the rest of the trials in testBlock to novelArray
         novelArray = novelArray.concat(cArray.slice(repeatTrialsPerCondition)); 
         novelArray = novelArray.concat(iArray.slice(repeatTrialsPerCondition));
-        
+
         //increment to next test block
         block++;
     }
@@ -203,8 +211,19 @@ function buildTestBlockArrays(){
  */
 function buildBlockArr(blockLetter){
     let blockConProp = getBlockCongruencies(blockLetter).c;
-    let blockArray = new Array(Math.floor(trialsPerBlock * blockConProp)).fill('c');
-    blockArray = blockArray.concat(new Array(trialsPerBlock - blockArray.length).fill('i'));
+
+    //this should be done with a dictionary instead or some other better method
+
+    if(blockLetter != 'test'){
+        let blockArray = new Array(Math.floor(trialsPerLearnBlock * blockConProp)).fill('c');
+        blockArray = blockArray.concat(new Array(trialsPerLearnBlock - blockArray.length).fill('i'));
+    }
+
+    else {
+        let blockArray = new Array(Math.floor(trialsPerTestBlock * blockConProp)).fill('c');
+        blockArray = blockArray.concat(new Array(trialsPerTestBlock - blockArray.length).fill('i'));
+    }
+
     return shuffle(blockArray);
 }
   
@@ -232,14 +251,26 @@ function contextFlankerMainTrial(){
         promptScreenSize();
         return;
     }
-    // increment block and delay for however many seconds we want
-    if ((trialCount - 1) % trialsPerBlock == 0 && (trialCount - 1) != 0) {
-        console.log('last trial before countdown: ' + trialCount);
-        countDownEndOfBlock(10);
-        block++;
 
+    //do better way of checking if learn block or test block
+    if (block < nBlocks) {
+    // increment block and delay for however many seconds we want
+        if ((trialCount - 1) % trialsPerLearnBlock == 0 && (trialCount - 1) != 0) {
+            console.log('last trial before countdown: ' + trialCount);
+            countDownEndOfBlock(10);
+            block++;
+        }
     }
 
+    if (block == nBlocks){
+        // increment block and delay for however many seconds we want
+        if ((trialCount - 1) % trialsPerTestBlock == 0 && (trialCount - 1) != 0) {
+            console.log('last trial before countdown: ' + trialCount);
+            countDownEndOfBlock(10);
+            block++;
+        }
+    }
+    
     else {
     // none of the above happened, proceed to trial
     fixationScreen();

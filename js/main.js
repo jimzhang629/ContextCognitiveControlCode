@@ -5,11 +5,10 @@ let speed = "normal"; //speed of experiment: fast or normal
 // ----- Global Variables  ----- //
 let nLearnBlocks = 2; //this should prob be 2, but we might play with it.
 let nTestBlocks = 1;
-let trialsPerBlock = 3;
 let nBlocks = nLearnBlocks + nTestBlocks; //this should always be 3 for this experiment I think..
 
-let trialsPerLearnBlock = 3; //this is kinda redundant with trialsPerBlock rn but might use it in the future.
-let trialsPerTestBlock = 3; //this can be changed if we want, I think.
+let trialsPerLearnBlock = 2; //this is kinda redundant with trialsPerBlock rn but might use it in the future.
+let trialsPerTestBlock = 4; //this can be changed if we want, I think.
 let repeatTrialsPerCondition = 1;
 let repeat = true; //first trial of test block is a repeat trial drawn from testArray
 

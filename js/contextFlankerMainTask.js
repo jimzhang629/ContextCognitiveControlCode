@@ -81,7 +81,7 @@ function buildMainLocArray(){
         else {
             blockLocArray = new Array(trialsPerTestBlock).fill(getBlockCongruencies(blockLetter).loc);
         }
-        
+
         locArray = locArray.concat(blockLocArray);
     });
 
@@ -255,28 +255,26 @@ function contextFlankerMainTrial(){
         promptScreenSize();
         return;
     }
-
-    //do better way of checking if learn block or test block
-    if (block < nBlocks) {
-    // increment block and delay for however many seconds we want
-        if ((trialCount - 1) % trialsPerLearnBlock == 0 && (trialCount - 1) != 0) {
-            console.log('last trial before countdown: ' + trialCount);
-            countDownEndOfBlock(10);
-            block++;
-        }
+    
+    //this needs to be made dependent on nTestBlocks and nLearnBlocks
+    //if block is 1 or 2, then check if this is the last trial in the learn block
+    //if block is 3, then check if it's the last trial in the test block
+    trialsPerBlock = {
+        1: trialsPerLearnBlock,
+        2: trialsPerLearnBlock,
+        3: trialsPerTestBlock
     }
-
-    if (block == nBlocks){
-        // increment block and delay for however many seconds we want
-        if ((trialCount - 1) % trialsPerTestBlock == 0 && (trialCount - 1) != 0) {
-            console.log('last trial before countdown: ' + trialCount);
-            countDownEndOfBlock(10);
-            block++;
-        }
+    
+    
+    // increment block and delay for block interval
+    if ((trialCount - 1) % trialsPerBlock[block] == 0 && (trialCount - 1) != 0) {
+        console.log('last trial before countdown: ' + trialCount);
+        countDownEndOfBlock(10);
+        block++;
     }
     
     else {
-    // none of the above happened, proceed to trial
-    fixationScreen();
+        // none of the above happened, proceed to trial
+        fixationScreen();
     }
 }

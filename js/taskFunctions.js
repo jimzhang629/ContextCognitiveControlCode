@@ -120,13 +120,16 @@ function stimScreen(){
   //for the test block, alternate between repeat trials and novel trials
 
   if(block===nBlocks){
+    console.log('final block!');
     if (repeat) {
       trialImg = _.sample(testArray); //choose random testArray image to draw
 
       //remove this trial image from testArray so it doesn't get repeated again
       idx = testArray.indexOf(trialImg);
       testArray.splice(idx, 1);
+      console.log('chosen from testArray');
     }
+
 
     else {
       trialImg = _.sample(novelArray); //choose random novelArray image to draw
@@ -134,9 +137,11 @@ function stimScreen(){
       //remove this trial image from novelArray so it doesn't get repeated..
       idx = novelArray.indexOf(trialImg);
       novelArray.splice(idx,1);
+      console.log('chosen from novelArray');
     }
 
     repeat = !repeat; //alternate between repeated trials and novel trials.
+    console.log(repeat);
   }
 
   //for practice exp stage, as well as learning blocks, can just draw based on trialCount

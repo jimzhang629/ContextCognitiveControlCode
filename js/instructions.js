@@ -21,8 +21,8 @@ let instructions = {
 }
 let iterateAgain = false, task;
 
-function navigateInstructionPath(repeat = false){
-  if (repeat == true) {
+function navigateInstructionPath(repeatInstr = false){
+  if (repeatInstr == true) {
     // if multi stage instructions, ensures it goes back to first not second
     // switch (expStage){
     //   case "prac1-1":

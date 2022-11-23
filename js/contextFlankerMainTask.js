@@ -20,6 +20,7 @@ function contextFlankerMainTask(){
     taskFunc = contextFlankerMainTrial;
     transitionFunc = itiScreen;
 
+    //this needs to be matched to how many test images we have, we don't have that many
     //assign congruency and location values to each test image (make this more efficient later)
     for (let i=0; i < conArray.length; i++) {
         selectedTestImages[i].con = conArray[i];
@@ -47,6 +48,7 @@ function contextFlankerMainTask(){
 
 // don't forget to do locations and reinstatements for test block!
 
+//I'm not sure this should be this long.
 /** 
  * buildConArray creates an array object that contains two subarrays, one more proportionally congruent and the other more proportionally incongruent.
  * left button press (Z) is congruent, right button press (M) is incongruent.
@@ -79,7 +81,7 @@ function buildMainLocArray(){
         }
 
         else {
-            blockLocArray = new Array(trialsPerTestBlock).fill(getBlockCongruencies(blockLetter).loc);
+            blockLocArray = new Array(novelTestBlockTrials).fill(getBlockCongruencies(blockLetter).loc);
         }
 
         locArray = locArray.concat(blockLocArray);
@@ -125,8 +127,8 @@ function buildTestBlockArrays(){
         //randomly add 20 trials from each to testArray
         cArray = shuffle(cArray);
         iArray = shuffle(iArray);
-        testArray = testArray.concat(cArray.slice(0,19)); //I hope slice actually does this lol.
-        testArray = testArray.concat(iArray.slice(0,19));
+        testArray = testArray.concat(cArray.slice(0,repeatTrialsPerCondition-1)); //I hope slice actually does this lol.
+        testArray = testArray.concat(iArray.slice(0,repeatTrialsPerCondition-1));
 
         //increment to next learning block
         block++;
@@ -141,8 +143,8 @@ function buildTestBlockArrays(){
         let iArray = []; // the array of incongruent trials for each block
 
         let learnBlockOffset = trialsPerLearnBlock * nLearnBlocks; //because selectedTestImages is an array with the learn trials first, offset by them to get first test trial.
-        let blockStart = (block-1) * trialsPerTestBlock + learnBlockOffset; 
-        let blockEnd = block * trialsPerTestBlock + learnBlockOffset; //the last trial in the block, think i need to add +1 to for loop to make it inclusive
+        let blockStart = (block-1) * novelTestBlockTrials + learnBlockOffset; 
+        let blockEnd = block * novelTestBlockTrials + learnBlockOffset; //the last trial in the block, think i need to add +1 to for loop to make it inclusive
 
         // go through each trial in the block, and add it to cArray if it's congruent, and iArray if it's incongruent
         for (let i=blockStart; i<blockEnd; i++) {
@@ -176,36 +178,6 @@ function buildTestBlockArrays(){
 }
 
 
-/** buildRepeatArray creates an array of trials to be repeated from the learn blocks, and an array of which trials they should be repeated on in the test block.
- * @returns {array} repeatArray : this is an array of two arrays. The first one is the trials that will be repeated, the second is the trials on which repeats will occur.
- */
-// function buildRepeatArray(){
-//     //code from https://stackoverflow.com/questions/5836833/create-an-array-with-random-values
-//     //code from https://stackoverflow.com/questions/2380019/generate-unique-random-numbers-between-1-and-100
-//     let repeatTheseTrials = [];
-//     let repeatOnTheseTrials = [];
-
-//     //think I need separate while loops because one might get filled before the other one does if I put them together.
-//     while(repeatTheseTrials.length < nRepeatTrials){
-//         let learnTrial = randIntFromInterval(1,nLearnBlocks * trialsPerLearnBlock); //lower trialcount limit is 1, upper is the last learn block trial count. Not sure if this is inclusive though, test it.
-//         if(repeatTheseTrials.indexOf(learnTrial) === -1) repeatTheseTrials.push(learnTrial);
-//     }
-
-//     while(repeatOnTheseTrials.length < nRepeatTrials){
-//         let testTrial = randIntFromInterval(nLearnBlocks * trialsPerLearnBlock+2, nLearnBlocks * trialsPerLearnBlock + trialsPerTestBlock) //lower is the second test block trial count, upper is the last. Skip the first test trial cuz don't want to consecutively repeat.
-//         if (repeatOnTheseTrials.indexOf(testTrial) === -1) repeatOnTheseTrials.push(testTrial);
-
-//         //check if there would be consecutive repeated trials if we add this trial, and don't add it if so.
-//         if (ContainsConsecutiveValue(repeatOnTheseTrials)) {
-//             repeatOnTheseTrials.pop(); //the array didn't have consecutive values until we added this most recent value, so pop it out.
-//         }
-//     }
-//     // repeatTheseTrials = Array.from({length: nRepeatTrials}, () => Math.floor(Math.random() * (nLearnBlocks * trialsPerLearnBlock)))
-//     // repeatOnTheseTrials = Array.from({length: nRepeatTrials}, () => Math.floor(Math.random() * (nLearnBlocks * trialsPerLearnBlock)))
-//     return [repeatTheseTrials, repeatOnTheseTrials];
-// }
-
-
 /** buildBlockArr creates an array of congruency values based on block parameters
  * 
  * @param {string} blockLetter : This must be one of the predefined cases in getBlockCongruencies in counterbalancing.js. Sets the location and congruency rate of the block.
@@ -222,8 +194,8 @@ function buildBlockArr(blockLetter){
     }
 
     else {
-        blockArray = new Array(Math.floor(trialsPerTestBlock * blockConProp)).fill('c');
-        blockArray = blockArray.concat(new Array(trialsPerTestBlock - blockArray.length).fill('i'));
+        blockArray = new Array(Math.floor(novelTestBlockTrials * blockConProp)).fill('c');
+        blockArray = blockArray.concat(new Array(novelTestBlockTrials - blockArray.length).fill('i'));
     }
 
     return shuffle(blockArray);

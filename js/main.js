@@ -7,9 +7,10 @@ let nLearnBlocks = 2; //this should prob be 2, but we might play with it.
 let nTestBlocks = 1;
 let nBlocks = nLearnBlocks + nTestBlocks; //this should always be 3 for this experiment I think..
 
-let trialsPerLearnBlock = 2; //this is kinda redundant with trialsPerBlock rn but might use it in the future.
-let trialsPerTestBlock = 4; //this can be changed if we want, I think.
-let repeatTrialsPerCondition = 1;
+let trialsPerLearnBlock = 100; //this is kinda redundant with trialsPerBlock rn but might use it in the future.
+let trialsPerTestBlock = 240; //this can be changed if we want, I think.
+let repeatTrialsPerCondition = 20;
+let novelTestBlockTrials = nTestBlocks * trialsPerTestBlock - 4*repeatTrialsPerCondition; //we have four conditions to be repeated (cC, iI, iC, cI)
 let repeat = true; //first trial of test block is a repeat trial drawn from testArray
 
   if(repeatTrialsPerCondition > Math.floor(1+trialsPerLearnBlock/2)){
@@ -25,13 +26,13 @@ let trialInput;
 // let delayBtwnBlocks = 10;
 
 // for practice task
-let nPracticeTrials = 1;
+let nPracticeTrials = 10;
 let practiceConProp = 0.5; // 50% congruency for practice
-let practiceAccCutoff = 0; // this is the percentage of practice trials you need to get right to move on to main task
+let practiceAccCutoff = 0.8; // this is the percentage of practice trials you need to get right to move on to main task
 
 // for main task
 let conArray, locArray;
-let nRepeatTrials = 1; //how many trials from the learning blocks to reinstate in the test block
+// let nRepeatTrials = 1; //how many trials from the learning blocks to reinstate in the test block
 let repeatArray;
 let testArray;
 let repeatLog; //variable for if this trial was a repeat, and if so, which trial was it a repeat of
@@ -41,7 +42,8 @@ let trialCount = 1, blockTrialCount = 1, block = 1, accCount = 0;
 
 //other global vars
 let canvas, ctx; // global canvas variable
-let sampleSize = nPracticeTrials + nLearnBlocks * trialsPerLearnBlock + nTestBlocks * trialsPerTestBlock; //might need to subtract the number of repeat trials from this, but don't see the harm in grabbing extra images
+let sampleSize = nPracticeTrials + nLearnBlocks * trialsPerLearnBlock + novelTestBlockTrials; //might need to subtract the number of repeat trials from this, but don't see the harm in grabbing extra images
+
 let taskFunc, transitionFunc, stimFunc, taskName;
 let acc, stimOnset, respOnset, respTime, partResp, runStart;
 let stimTimeout, breakOn = false, repeatNecessary = false, data=[];

@@ -127,8 +127,8 @@ function buildTestBlockArrays(){
         //randomly add 20 trials from each to testArray
         cArray = shuffle(cArray);
         iArray = shuffle(iArray);
-        testArray = testArray.concat(cArray.slice(0,repeatTrialsPerCondition-1)); //I hope slice actually does this lol.
-        testArray = testArray.concat(iArray.slice(0,repeatTrialsPerCondition-1));
+        testArray = testArray.concat(cArray.slice(0,repeatTrialsPerCondition)); //I hope slice actually does this lol.
+        testArray = testArray.concat(iArray.slice(0,repeatTrialsPerCondition));
 
         //increment to next learning block
         blockCount++;
@@ -163,8 +163,8 @@ function buildTestBlockArrays(){
         //randomly add 20 trials from each to testArray
         cArray = shuffle(cArray);
         iArray = shuffle(iArray);
-        testArray = testArray.concat(cArray.slice(0,repeatTrialsPerCondition-1)); //I hope slice actually does this lol.
-        testArray = testArray.concat(iArray.slice(0,repeatTrialsPerCondition-1));
+        testArray = testArray.concat(cArray.slice(0,repeatTrialsPerCondition)); //I hope slice actually does this lol.
+        testArray = testArray.concat(iArray.slice(0,repeatTrialsPerCondition));
         
         //add the rest of the trials in testBlock to novelArray
         novelArray = novelArray.concat(cArray.slice(repeatTrialsPerCondition)); 

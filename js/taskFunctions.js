@@ -155,13 +155,13 @@ function itiScreen(){
     if (trialCount > nPracticeTrials) {
       // checks if you did well enough on practice task to move forward
       if (decimalToPercent(accCount / nPracticeTrials) >= practiceAccCutoff) {
+        trialCount = 1; //reset trialCount to 1 for the main task
         navigateInstructionPath();
       } else {
       //if you failed, try again
         practiceAccuracyFeedback(decimalToPercent(accCount / nPracticeTrials));
       }
 
-      trialCount = 1; //reset trialCount to 1 for the main task
       return;
     }
   

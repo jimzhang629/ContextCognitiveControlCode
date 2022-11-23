@@ -20,7 +20,7 @@ function logPracticeTask(){
  * 
  */
 function logExpArrays(){
-  data.push(NaN, NaN, NaN, ...arguments, locArray, conArray, repeatArray) //add however many NaNs you need to until the end, and attach the arrays
+  data.push(NaN, NaN, NaN, ...arguments, locArray, conArray) //add however many NaNs you need to until the end, and attach the arrays
 }
 
 

@@ -82,40 +82,6 @@ function stimScreen(){
         'l': "large"
       }
     }
-  
-  // //only run the repeat trial stuff for main1
-  // if(expStage==='main1'){
-
-  //   let localRepeatTheseTrials = repeatArray[0].slice();
-  //   console.log('localRepeatTheseTrials : ' + localRepeatTheseTrials)
-  //   let localRepeatOnTheseTrials = repeatArray[1].slice();
-
-  //   // check if we should repeat on this trial
-  //   if (localRepeatOnTheseTrials.includes(trialCount)) {
-
-  //     //select a random trial from localRepeatTheseTrials and draw it
-  //     repeatThisTrial = localRepeatTheseTrials[Math.floor(Math.random() * localRepeatTheseTrials.length)];
-  //     draw(imageSet[repeatThisTrial-1], loc=locArray[repeatThisTrial-1], flankerSize=drawMapping[conArray[repeatThisTrial-1]][getTargetSize(imageSet[repeatThisTrial-1].src)]);
-  //     console.log('length of localRepeatTheseTrials before pop is: ' + localRepeatTheseTrials.length);
-  //     //breakpoint here
-
-  //     //remove the selected trial from localRepeatTheseTrials
-  //     let idx = localRepeatTheseTrials.indexOf(repeatThisTrial);
-  //     localRepeatTheseTrials.splice(idx,1);
-  //     // removeFirst(localRepeatTheseTrials,repeatThisTrial); //this should also remove the selected trial but dunno if it needs to be assigned to variable?
-      
-  //     repeatLog = repeatThisTrial; //store which trial was repeated for data logging
-  //     console.log('length of localRepeatTheseTrials after pop is: ' + localRepeatTheseTrials.length);
-  //   }
-
-  //   //if we don't need to repeat this trial, draw the trialCount image
-  //   else {
-  //     //index the drawMapping dict twice, first with the congruency (from conArray), second with the flanker size (using getTargetSize and the image.src)
-  //     draw(imageSet[trialCount-1], loc=locArray[trialCount-1], flankerSize=drawMapping[conArray[trialCount-1]][getTargetSize(imageSet[trialCount-1].src)]);
-  //     repeatLog = NaN; //if trial isn't a repeat, datalog a NaN. Maybe do a False instead?
-  //   }
-
-  // }
     
   //for the test block, alternate between repeat trials and novel trials
 
@@ -139,6 +105,7 @@ function stimScreen(){
       novelArray.splice(idx,1);
       console.log('chosen from novelArray');
     }
+    trialImg.loc = 'center'; //draw all the repeats in the center of the screen
 
     repeat = !repeat; //alternate between repeated trials and novel trials.
     console.log(repeat);
@@ -277,40 +244,6 @@ function countDownEndOfBlock(seconds){
       fixationScreen();
     }
 }
-
-// function blockDelay(seconds){
-
-//   setTimeout(fixationScreen,1000*seconds); //display fixation screen after however many seconds
-
-//   let delayTimeLeft = seconds;
-
-//   //need to clear, and not show it after every trial
-//   setInterval(function() {
-  
-//   ctx.clearRect(0, 0, canvas.width, canvas.height);
-//   ctx.fillStyle = "black";
-//   ctx.font = "bold 50px Arial";
-
-//   if (nBlocks - block > 1) {
-//     ctx.fillText("You are finished with block " + block + ". You have " + (nBlocks - block) + " blocks left.",canvas.width/2,canvas.height/2);
-//   } else {
-//     ctx.fillText("You are finished with block " + block + ". You have " + (nBlocks - block) + " block left.",canvas.width/2,canvas.height/2);
-//   }
-
-//   ctx.fillText("Your overall accuracy so far is " + Math.round((accCount/trialCount)*100) + "%.",canvas.width/2,canvas.height/2+50);
-
-//   ctx.fillText("The next block will start in " + delayTimeLeft + " seconds", canvas.width/2, canvas.height/2 + 100);
-//     if (delayTimeLeft < 0) {
-//       clearInterval();
-//       return;
-//     }
-//     delayTimeLeft--;
-
-//     }, 1000);
-  
-  
-//   block++; 
-// }
 
 function practiceAccuracyFeedback(accuracy){
     sectionStart = new Date().getTime() - runStart;

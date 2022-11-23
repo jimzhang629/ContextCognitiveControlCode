@@ -32,7 +32,6 @@ function contextFlankerMainTask(){
 
     stimFunc = draw; //this is the actual trial function that gets run by stimScreen. For this experiment, don't really need this variable since it will always be draw().
 
-    // repeatArray = buildRepeatArray();
     imageSet = selectedTestImages; //attempt to be more modular, but honestly don't need this variable, can just set it in stimScreen.
     
     testBlockArrays = buildTestBlockArrays();
@@ -90,30 +89,31 @@ function buildMainLocArray(){
     return locArray;
 }
 
-/** buildTestArray holds out 20 congruent and incongruent trials from each block, to be alternately drawn with novel trials in the test block.
+/** buildTestBlockArray holds out 20 congruent and incongruent trials from each block, to be alternately drawn with novel trials in the test block.
  * 
  */
 function buildTestBlockArrays(){
     //make this modular based on nLearnBlocks, trialsPerLearnBlock
 
-    let block = 1;
+    let blockCount = 1;
     
     let testArray = [];
     let novelArray = [];
     //go through each learn block, sort each trial by its congruency, and randomly choose 20 of both congruencies to be used as test trials.
     //i think this could easily be replaced by a sort function but *shrug* bad code is fun code.
-    while(block < nLearnBlocks+1){
+    while(blockCount < nLearnBlocks+1){
 
         let cArray = []; //the array of congruent trials for each block
         let iArray = []; // the array of incongruent trials for each block
 
-        let blockStart = (block-1) * trialsPerLearnBlock; //the first trial in the block
-        let blockEnd = block * trialsPerLearnBlock; //the last trial in the block, think i need to add +1 to for loop to make it inclusive
-
+        let blockStart = (blockCount-1) * trialsPerLearnBlock; //the first trial in the block
+        let blockEnd = blockCount * trialsPerLearnBlock; //the last trial in the block, think i need to add +1 to for loop to make it inclusive
+        
         // go through each trial in the block, and add it to cArray if it's congruent, and iArray if it's incongruent
         for (let i=blockStart; i<blockEnd; i++) {
             if(selectedTestImages[i].con === 'c'){
                 cArray.push(selectedTestImages[i]);
+                console.log('cArray: ' + cArray);
             }
 
             else if (selectedTestImages[i].con === 'i'){
@@ -131,20 +131,20 @@ function buildTestBlockArrays(){
         testArray = testArray.concat(iArray.slice(0,repeatTrialsPerCondition-1));
 
         //increment to next learning block
-        block++;
+        blockCount++;
     }
 
-    block = 1; //reset the block count for test blocks
+    blockCount = 1; //reset the block count for test blocks
 
     //add 20 congruent and incongruent test block trials. This should be incorporated into the learning block code, shouldn't have a separate while loop for it BUT get it working first.
-    while(block < nTestBlocks+1){
+    while(blockCount < nTestBlocks+1){
 
         let cArray = []; //the array of congruent trials for each block
         let iArray = []; // the array of incongruent trials for each block
 
         let learnBlockOffset = trialsPerLearnBlock * nLearnBlocks; //because selectedTestImages is an array with the learn trials first, offset by them to get first test trial.
-        let blockStart = (block-1) * novelTestBlockTrials + learnBlockOffset; 
-        let blockEnd = block * novelTestBlockTrials + learnBlockOffset; //the last trial in the block, think i need to add +1 to for loop to make it inclusive
+        let blockStart = (blockCount-1) * novelTestBlockTrials + learnBlockOffset; 
+        let blockEnd = blockCount * novelTestBlockTrials + learnBlockOffset; //the last trial in the block, think i need to add +1 to for loop to make it inclusive
 
         // go through each trial in the block, and add it to cArray if it's congruent, and iArray if it's incongruent
         for (let i=blockStart; i<blockEnd; i++) {
@@ -171,7 +171,7 @@ function buildTestBlockArrays(){
         novelArray = novelArray.concat(iArray.slice(repeatTrialsPerCondition));
 
         //increment to next test block
-        block++;
+        blockCount++;
     }
 
     return [shuffle(testArray), shuffle(novelArray)];
@@ -239,9 +239,10 @@ function contextFlankerMainTrial(){
     
     
     // increment block and delay for block interval
-    if ((trialCount - 1) % trialsPerBlock[block] == 0 && (trialCount - 1) != 0) {
+    if ((blockTrialCount - 1) % trialsPerBlock[block] == 0 && (blockTrialCount - 1) != 0) {
         console.log('last trial before countdown: ' + trialCount);
         countDownEndOfBlock(10);
+        blockTrialCount = 1;
         block++;
     }
     

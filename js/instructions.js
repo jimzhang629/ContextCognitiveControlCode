@@ -91,7 +91,7 @@ function getInstructionText(slideNum, expStage){
         case 1:
           return "Good job on completing the practice!";
         case 2:
-          return "You will now complete the main experiment. This should take roughly 30 minutes.";
+          return "You will now complete the main experiment. This should take between 20-30 minutes.";
         case 3:
           return "As a reminder, press 'S' to indicate if the center image is typically smaller than a basketball, and 'L' if it is typically larger. Ignore the flanking basketball images.";
         case 4:

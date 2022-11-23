@@ -32,14 +32,6 @@ let unselectedSRCs = imageSRCs.filter(image => !selectedSRCs.includes(image))
 let selectedImages = new Array(selectedSRCs.length);
 
 for (var i = 0; i < selectedImages.length; i++) {
-  // img = new Imagw
-  // img.src = src
-  // dict = {
-  //   image: img
-  //   diff: 
-  //   posit
-  // }
-  // Array.push (dict)
   
   selectedImg = new Image(500,300);
   selectedImg.src = selectedSRCs[i];
@@ -51,10 +43,7 @@ for (var i = 0; i < selectedImages.length; i++) {
   }
 
   selectedImages[i] = imgWrapper;
-//github desktop test
 }
-
-//does github desktop save changes
 
 selectedImages = shuffle(selectedImages);
 

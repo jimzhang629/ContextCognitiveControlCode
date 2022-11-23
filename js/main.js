@@ -117,11 +117,11 @@ function experimentFlow(){
     respTime = respOnset - stimOnset;
   
     // determine accuracy
-    // [83,115] - s and [76,108] - l
+    // [83,115] - s,S and [76,108] - l,L
 
     //because using img wrapper object, need to use imageSet[].img.src instead of just imageset[].src
 
-    if (getTargetSize(imageSet[trialCount-1].img.src) == 's') { //if it's a small image, then press z
+    if (getTargetSize(trialImg.img.src) == 's') { //if it's a small image, then press z
       acc = ([83, 115].indexOf(event.which) != -1) ? 1 : 0;
     } else {
       acc = ([76, 108].indexOf(event.which) != -1) ? 1 : 0; //if large image, press m

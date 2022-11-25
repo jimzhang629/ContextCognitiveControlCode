@@ -30,7 +30,6 @@ function contextFlankerPracticeTask(){
     }
 
     imageSet = selectedPracticeImages; //attempt to be more modular, but honestly don't need this variable, can just set it in stimScreen.
-    console.log('selectedPracticeImages: ' + selectedPracticeImages);
 
     stimFunc = draw; //this is the actual trial function that gets run by stimScreen. For this experiment, don't really need this variable since it will always be draw().
 

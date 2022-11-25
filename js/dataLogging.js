@@ -7,20 +7,21 @@ function logSectionData(){
 
 function logMainTask(){
   //blockLetter is undefined..
-  data.push([sectionType, taskName, block, blockOrder, blockOrder[block], trialCount, blockTrialCount, trialImg, trialImg.img.src, trialImg.con, trialImg.loc, repeat, stimOnset, respOnset, respTime, getAccuracy(acc), locArray[trialCount-1], conArray[trialCount-1], NaN, NaN, NaN]);
-  console.log('block is: ' + block);
+  data.push([sectionType, taskName, block, blockOrder, blockOrder[block], trialCount, blockTrialCount, trialImg, trialImg.img.src, trialImg.con, trialImg.loc, repeat, stimOnset, respOnset, respTime, getAccuracy(acc), locArray[trialCount-1], conArray[trialCount-1], NaN, NaN, NaN, NaN, NaN, NaN]);
+  console.log(data);
 }
 
 function logPracticeTask(){
   // let distractorLocation = (distractionArr[trialCount - 1] == "d") ? distractorLocationArr[trialCount - 1] : NaN;
-  data.push([sectionType, taskName, NaN, NaN, NaN, trialCount, NaN, trialImg, trialImg.img.src, trialImg.con, trialImg.loc, NaN, stimOnset, respOnset, respTime, getAccuracy(acc), locArray[trialCount-1], conArray[trialCount-1], NaN, NaN, NaN]);
+  data.push([sectionType, taskName, NaN, NaN, NaN, trialCount, NaN, trialImg, trialImg.img.src, trialImg.con, trialImg.loc, NaN, stimOnset, respOnset, respTime, getAccuracy(acc), locArray[trialCount-1], conArray[trialCount-1], NaN, NaN, NaN, NaN, NaN, NaN]);
+  console.log(data);
 }
 
 /** logExpArrays stores the conArray, locArray, and repeatArray (which is actually two arrays)
  * 
  */
 function logExpArrays(){
-  data.push(NaN, NaN, NaN, ...arguments, locArray, conArray) //add however many NaNs you need to until the end, and attach the arrays
+  data.push([NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, locArray, conArray, selectedImages]); //add however many NaNs you need to until the end, and attach the arrays
 }
 
 

@@ -8,33 +8,33 @@ $(document).ready(function(){
   $("#table").hide();
   $("#mturk_form").hide();
   $("#instructions").hide();
-  // $("#myButton").hide(); // I think this is a test case
+  $("#myButton").hide(); // I think this is a test case
 
-//   // gets MTurk Worker Information and assign to HTML elements
-//   let mt = getAllUrlParams(window.location.href);
+  // gets MTurk Worker Information and assign to HTML elements
+  let mt = getAllUrlParams(window.location.href);
 
-//   document.getElementById('assignmentId').value = mt.assid;
-//   document.getElementById('hitId').value = mt.hitid;
-//   document.getElementById('workerId').value = mt.workerid;
+  document.getElementById('assignmentId').value = mt.assid;
+  document.getElementById('hitId').value = mt.hitid;
+  document.getElementById('workerId').value = mt.workerid;
 
-//   console.log(document.getElementById('assignmentId').value);
-//   console.log(document.getElementById('hitId').value);
-//   console.log(document.getElementById('workerId').value);
+  console.log(document.getElementById('assignmentId').value);
+  console.log(document.getElementById('hitId').value);
+  console.log(document.getElementById('workerId').value);
 
-//   // check worker ID
-//   if (document.getElementById("assignmentId").value == "" || document.getElementById("assignmentId").value == "ASSIGNMENT_ID_NOT_AVAILABLE" || document.getElementById("assignmentId").value == "assignment_id_not_available"){
+  // check worker ID
+  if (document.getElementById("assignmentId").value == "" || document.getElementById("assignmentId").value == "ASSIGNMENT_ID_NOT_AVAILABLE" || document.getElementById("assignmentId").value == "assignment_id_not_available"){
 
-//     // display text for accepting HIT
-//     $("#table").show();
-//     $("#instruction").text("Accept HIT first");
-//     $("#instruction").show();
-//     $("#redo").hide();
+    // display text for accepting HIT
+    $("#table").show();
+    $("#instruction").text("Accept HIT first");
+    $("#instruction").show();
+    $("#redo").hide();
 
-//   } else {
+  } else {
 
     prepareMenu();
 
-//   }
+  }
 });
 
 function prepareMenu(){
@@ -88,7 +88,6 @@ function updateMainMenu(expStage){
       $("#demographicsForm").hide();
       $("#table").hide();
       startExperiment();
-      console.log('started Experiment')
       break;
     case 3: //debriefing
       $("#mturk_form").show();

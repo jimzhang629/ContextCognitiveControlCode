@@ -40,7 +40,6 @@ function contextFlankerMainTask(){
     
     logExpArrays(); //store the experiment arrays. Hopefully this only runs once. Test it.
 
-    console.log('conArray:' + conArray);
     // start task after countdown (calls taskFunc)
     countDown(3);
 }
@@ -113,7 +112,6 @@ function buildTestBlockArrays(){
         for (let i=blockStart; i<blockEnd; i++) {
             if(selectedTestImages[i].con === 'c'){
                 cArray.push(selectedTestImages[i]);
-                console.log('cArray: ' + cArray);
             }
 
             else if (selectedTestImages[i].con === 'i'){
@@ -240,7 +238,6 @@ function contextFlankerMainTrial(){
     
     // increment block and delay for block interval
     if ((blockTrialCount - 1) % trialsPerBlock[block] == 0 && (blockTrialCount - 1) != 0) {
-        console.log('last trial before countdown: ' + trialCount);
         countDownEndOfBlock(10);
         blockTrialCount = 1;
         block++;

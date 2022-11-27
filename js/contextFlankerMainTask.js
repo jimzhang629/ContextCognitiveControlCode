@@ -38,8 +38,6 @@ function contextFlankerMainTask(){
     testArray = testBlockArrays[0];
     novelArray = testBlockArrays[1];
     
-    logExpArrays(); //store the experiment arrays. Hopefully this only runs once. Test it.
-
     // start task after countdown (calls taskFunc)
     countDown(3);
 }

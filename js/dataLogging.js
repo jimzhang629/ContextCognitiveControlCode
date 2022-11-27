@@ -7,7 +7,7 @@ function logSectionData(){
 
 function logMainTask(){
   //blockLetter is undefined..
-  data.push([sectionType, taskName, block, blockOrder, blockOrder[block], trialCount, blockTrialCount, trialImg, trialImg.img.src, trialImg.con, trialImg.loc, repeat, stimOnset, respOnset, respTime, getAccuracy(acc), locArray[trialCount-1], conArray[trialCount-1], NaN, NaN, NaN, NaN, NaN, NaN]);
+  data.push([sectionType, taskName, block, blockOrder, blockOrder[block-1], trialCount, blockTrialCount, trialImg, trialImg.img.src, trialImg.con, trialImg.loc, repeat, stimOnset, respOnset, respTime, getAccuracy(acc), locArray[trialCount-1], conArray[trialCount-1], NaN, NaN, NaN, NaN, NaN, NaN]);
   console.log(data);
 }
 

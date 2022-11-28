@@ -7,17 +7,18 @@ function logSectionData(){
 
 function logMainTask(){
   //blockLetter is undefined..
-  data.push([sectionType, taskName, block, blockOrder, blockOrder[block-1], trialCount, blockTrialCount, trialImg, trialImg.img.src, trialImg.con, trialImg.loc, repeat, stimOnset, respOnset, respTime, getAccuracy(acc), locArray[trialCount-1], conArray[trialCount-1], NaN, NaN, NaN, NaN, NaN, NaN]);
+  data.push([sectionType, taskName, block, blockOrder, blockOrder[block-1], trialCount, blockTrialCount, trialImg, trialImg.img.src, trialImg.con, trialImg.loc, repeat, stimOnset, respOnset, respTime, getAccuracy(acc), NaN, NaN, NaN]);
   console.log(data);
 }
 
+//need to add however many NaNs for each block in block order
 function logPracticeTask(){
   // let distractorLocation = (distractionArr[trialCount - 1] == "d") ? distractorLocationArr[trialCount - 1] : NaN;
-  data.push([sectionType, taskName, NaN, NaN, NaN, trialCount, NaN, trialImg, trialImg.img.src, trialImg.con, trialImg.loc, NaN, stimOnset, respOnset, respTime, getAccuracy(acc), locArray[trialCount-1], conArray[trialCount-1], NaN, NaN, NaN, NaN, NaN, NaN]);
+  data.push([sectionType, taskName, NaN, NaN, NaN, NaN, NaN, trialCount, NaN, trialImg, trialImg.img.src, trialImg.con, trialImg.loc, NaN, stimOnset, respOnset, respTime, getAccuracy(acc), NaN, NaN, NaN]);
   console.log(data);
 }
 
-/** logExpArrays stores the conArray, locArray, and repeatArray (which is actually two arrays)
+/** logExpArrays stores the conArray, locArray, and repeatArray (which is actually two arrays). Don't actually need this though, it screws up formatting.
  * 
  */
 function logExpArrays(){

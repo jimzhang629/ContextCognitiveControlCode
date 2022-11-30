@@ -1,0 +1,7 @@
+confirmation number: KMMNtE57
+assignmentId:3wokgm4l75c5nl44q1m3ldrjueu0oi
+workerId:awsg11rh1py2i
+hitId:3tlfh2l6zckq93fwa27earuwwf02t6
+demographics:M;63;NHL;AI
+ExpName:contextFlanker
+Finish:Submit

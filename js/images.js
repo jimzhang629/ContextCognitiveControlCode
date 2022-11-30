@@ -15,12 +15,21 @@ let badImages = ['M4','M5','M6','M16','M28','M32','M52','M56','M60','M61','M62',
 
 for (let i = 1; i <= 272; i++) {
 
-  if(badImages.includes(`M${i}` || `N${i}`)){
+  if(badImages.includes(`M${i}`)){
     continue;
   }
   
   //check if it exists first before pushing it
   imageSRCs.push(`./images/M${i}.jpg`); //need ../ for mac but ./ for the people.duke website?
+}
+
+for (let i = 1; i <= 272; i++) {
+
+  if(badImages.includes(`N${i}`)){
+    continue;
+  }
+  
+  //check if it exists first before pushing it
   imageSRCs.push(`./images/N${i}.jpg`);
 }
 

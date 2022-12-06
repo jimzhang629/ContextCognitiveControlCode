@@ -70,6 +70,7 @@ function experimentFlow(){
     // make a practice task though, and test using it
 
     if (expStage.indexOf("prac1") != -1){
+      block = 1; //reset the block here too, I wonder why it's changing so much..
       contextFlankerPracticeTask();
     } else if (expStage.indexOf("main1") != -1){
       contextFlankerMainTask();

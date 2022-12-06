@@ -281,7 +281,8 @@ function practiceAccuracyFeedback(accuracy){
     resetCanvas("30px Arial", "black", true)
     keyListener = 5;
     repeatNecessary = true;
-  
+    block = 1; //reset the block if they messed up
+
     // display feedback text
     ctx.fillText("You got " + accuracy + "% correct in this practice block.",canvas.width/2,canvas.height/2 - 50);
     ctx.fillText("Remember, you need to get >" + practiceAccCutoff + "%.",canvas.width/2,canvas.height/2);

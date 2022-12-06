@@ -10,20 +10,22 @@
 //maybe do this by shifting the canvas up and down instead of the image.
 function draw(centerImg, loc='center', flankerSize='small') {
     // these are all half the size of the original image
-    let scaleRatio, cImgScaledW, cImgScaledH, flankerScaledW, flankerScaledH, leftCenterImg, leftFlanker;
 
-    scaleRatio = 0.5;
-    cImgScaledW = centerImg.width * scaleRatio;
-    cImgScaledH = centerImg.height * scaleRatio;
-
+    let scaleRatio = 0.5;
+    let cImgScaledW = centerImg.width * scaleRatio;
+    let cImgScaledH = centerImg.height * scaleRatio;
+    let largeFlankerScaleRatio = 1.2;
+    let smallFlankerScaleRatio = 0.5;
+    let flankerRadiusDiff = 0.5 * basketballImg.width * scaleRatio * (largeFlankerScaleRatio-smallFlankerScaleRatio);
+    
     if (flankerSize === 'large') {
-      flankerScaledW = basketballImg.width * scaleRatio * 1.2; 
-      flankerScaledH = basketballImg.height * scaleRatio * 1.2;
+      flankerScaledW = basketballImg.width * scaleRatio * largeFlankerScaleRatio; 
+      flankerScaledH = basketballImg.height * scaleRatio * largeFlankerScaleRatio;
     }
 
     else if (flankerSize === 'small') {
-      flankerScaledW = basketballImg.width * scaleRatio * 0.5; 
-      flankerScaledH = basketballImg.height * scaleRatio * 0.5;
+      flankerScaledW = basketballImg.width * scaleRatio * smallFlankerScaleRatio; 
+      flankerScaledH = basketballImg.height * scaleRatio * smallFlankerScaleRatio;
     }
 
     else {
@@ -37,24 +39,55 @@ function draw(centerImg, loc='center', flankerSize='small') {
     // draw center img in the center of the canvas
 
     if (loc === 'center') {
+      
       ctx.drawImage(centerImg, leftCenterImg, canvas.height/2 - cImgScaledH/2, width=cImgScaledW, height=cImgScaledH);
-      //draw a flanker at 1/4 of canvas width and at 3/4 of canvas width
-      ctx.drawImage(basketballImg, leftFlanker, canvas.height/2 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
-      ctx.drawImage(basketballImg, canvas.width - leftFlanker - flankerScaledW, canvas.height/2 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
+      
+      if (flankerSize === 'small') {
+        // align the right edge of small flanker with right edge of large flanker
+        ctx.drawImage(basketballImg, leftFlanker + flankerRadiusDiff, canvas.height/2 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
+        ctx.drawImage(basketballImg, canvas.width - leftFlanker - flankerScaledW - flankerRadiusDiff, canvas.height/2 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
+      }
+
+      else {
+          //draw a flanker at 1/4 of canvas width and at 3/4 of canvas width
+        ctx.drawImage(basketballImg, leftFlanker, canvas.height/2 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
+        ctx.drawImage(basketballImg, canvas.width - leftFlanker - flankerScaledW, canvas.height/2 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
+      }
+      
     }
 
     else if (loc === 'bottom') {
-      // draw on bottom, centered at 3/4 of canvas height
-      ctx.drawImage(centerImg, leftCenterImg, canvas.height*(3/4) - cImgScaledH/2, width=cImgScaledW, height=cImgScaledH);
-      ctx.drawImage(basketballImg, leftFlanker, canvas.height*(3/4) - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
-      ctx.drawImage(basketballImg, canvas.width - leftFlanker - flankerScaledW, canvas.height*(3/4) - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
+
+      if (flankerSize === 'small') {
+        // draw on bottom, centered at 3/4 of canvas height
+        ctx.drawImage(centerImg, leftCenterImg, canvas.height*(3/4) - cImgScaledH/2, width=cImgScaledW, height=cImgScaledH);
+        ctx.drawImage(basketballImg, leftFlanker + flankerRadiusDiff, canvas.height*(3/4) - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
+        ctx.drawImage(basketballImg, canvas.width - leftFlanker - flankerScaledW - flankerRadiusDiff, canvas.height*(3/4) - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
+      }
+      
+      else {
+        ctx.drawImage(centerImg, leftCenterImg, canvas.height*(3/4) - cImgScaledH/2, width=cImgScaledW, height=cImgScaledH);
+        ctx.drawImage(basketballImg, leftFlanker, canvas.height*(3/4) - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
+        ctx.drawImage(basketballImg, canvas.width - leftFlanker - flankerScaledW, canvas.height*(3/4) - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
+      }
+
     }
 
     else if (loc === 'top') {
+    
       // draw on top, centered at 1/4 of canvas height
-      ctx.drawImage(centerImg, leftCenterImg, canvas.height/4 - cImgScaledH/2, width=cImgScaledW, height=cImgScaledH);
-      ctx.drawImage(basketballImg, leftFlanker, canvas.height/4 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
-      ctx.drawImage(basketballImg, canvas.width - leftFlanker - flankerScaledW, canvas.height/4 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
+      if (flankerSize === 'small') {
+        ctx.drawImage(centerImg, leftCenterImg, canvas.height/4 - cImgScaledH/2, width=cImgScaledW, height=cImgScaledH);
+        ctx.drawImage(basketballImg, leftFlanker + flankerRadiusDiff, canvas.height/4 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
+        ctx.drawImage(basketballImg, canvas.width - leftFlanker - flankerScaledW - flankerRadiusDiff, canvas.height/4 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);  
+      }
+
+      else {
+        ctx.drawImage(centerImg, leftCenterImg, canvas.height/4 - cImgScaledH/2, width=cImgScaledW, height=cImgScaledH);
+        ctx.drawImage(basketballImg, leftFlanker, canvas.height/4 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);
+        ctx.drawImage(basketballImg, canvas.width - leftFlanker - flankerScaledW, canvas.height/4 - flankerScaledH/2, width=flankerScaledW, height=flankerScaledH);  
+      }
+
     }
   }
 

@@ -14,8 +14,8 @@ function draw(centerImg, loc='center', flankerSize='small') {
     let scaleRatio = 0.5;
     let cImgScaledW = centerImg.width * scaleRatio;
     let cImgScaledH = centerImg.height * scaleRatio;
-    let largeFlankerScaleRatio = 1.2;
-    let smallFlankerScaleRatio = 0.5;
+    let largeFlankerScaleRatio = 1.6;
+    let smallFlankerScaleRatio = 0.4;
     let flankerRadiusDiff = 0.5 * basketballImg.width * scaleRatio * (largeFlankerScaleRatio-smallFlankerScaleRatio);
     
     if (flankerSize === 'large') {

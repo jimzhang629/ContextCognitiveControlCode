@@ -7,9 +7,9 @@ let nLearnBlocks = 2; //this should prob be 2, but we might play with it.
 let nTestBlocks = 1;
 let nBlocks = nLearnBlocks + nTestBlocks; //this should always be 3 for this experiment I think..
 
-let trialsPerLearnBlock = 100; //this is kinda redundant with trialsPerBlock rn but might use it in the future.
-let trialsPerTestBlock = 240; //this can be changed if we want, I think.
-let repeatTrialsPerCondition = 20; //this can't be >= 1/4 * trialsPerTestBlock. Also can't be 1.
+let trialsPerLearnBlock = 10; //this is kinda redundant with trialsPerBlock rn but might use it in the future.
+let trialsPerTestBlock = 24; //this can be changed if we want, I think.
+let repeatTrialsPerCondition = 2; //this can't be >= 1/4 * trialsPerTestBlock. Also can't be 1.
 let novelTestBlockTrials = nTestBlocks * trialsPerTestBlock - 4*repeatTrialsPerCondition; //we have four conditions to be repeated (cC, iI, iC, cI)
 let repeat = true; //first trial of test block is a repeat trial drawn from testArray
 
@@ -26,7 +26,7 @@ let trialInput;
 // let delayBtwnBlocks = 10;
 
 // for practice task
-let nPracticeTrials = 10;
+let nPracticeTrials = 2;
 let practiceConProp = 0.5; // 50% congruency for practice
 let practiceAccCutoff = 80; // this is the percentage of practice trials you need to get right to move on to main task
 

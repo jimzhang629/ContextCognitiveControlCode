@@ -89,7 +89,6 @@ function removeFirst(arr, target) {
   }
 
 
-//light testing on browser seems to show this works.
 /** ContainsConsecutiveValue checks if a numerical array contains any consecutive values.
  * @param {array}
  * @returns {boolean} : true if array contains any consecutive values
